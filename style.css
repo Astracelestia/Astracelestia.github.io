@@ -1,67 +1,197 @@
-.text-primary {
-  color: rgba(255, 255, 255, 1);
+@font-face {
+  font-family: "kingthings";
+  src: url('https://trakteer.id/fonts/kingthings_clarity1.1-webfont.eot');
+  src: url('https://trakteer.id/fonts/kingthings_clarity1.1-webfont.eot') format("embedded-opentype"), url('https://trakteer.id/fonts/kingthings_clarity1.1-webfont.svg') format("svg"), url('https://trakteer.id/fonts/kingthings_clarity1.1-webfont.woff2') format("woff2"), url('https://trakteer.id/fonts/kingthings_clarity1.1-webfont.woff') format("woff"), url('https://trakteer.id/fonts/kingthings_clarity1.1-webfont.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-/* AWN - Awesome Notification */
-/* Tip Wrapper */
-.awn-toast-tip .awn-toast-wrapper {
-  font-family: var(--fontFamily), 'sans-serif';
-  font-size: 1em;
+.container {
+  margin-top: 20px;
+  display: none;
+  transition: opacity 0.5s;
+  font-family: var(--fontFamily);
 }
 
-#awn-toast-container {
-  pointer-events: none !important;
-  z-index: 9 !important;
+img.unit-icon {
+  width: auto;
+  height: 35px;
+  background: rgba(255, 255, 255, 1);
+  border-left: 3px solid rgba(24, 84, 197, 1);
+  border-bottom: 3px solid rgba(24, 84, 197, 1);
+  border-radius: 9999px;
+  padding: 7px;
+  z-index: 1;
+  animation: float 5s;
 }
 
-.awn-toast {
-  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.07);
+.stream-content {
+  background: rgba(49, 53, 71, 0.52);
+  border-radius: 16px;
+  border-left: 3px solid rgba(24, 84, 197, 1);
+  border-bottom: 3px solid rgba(24, 84, 197, 1);
+  font-family: var(--fontFamily);
+  animation: scaleup 0.25s linear;
+  animation-iteration-count: 1;
+  position: relative;
 }
 
-.awn-toast-tip .awn-toast-label {
-  color: rgba(255, 255, 255, 1) !important;
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.awn-toast-tip .awn-toast-progress-bar:after {
-  background: rgba(255, 255, 255, 1) !important;
-}
-
-.awn-toast-tip .awn-toast-wrapper {
-  border: 0px solid rgba(255, 255, 255, 1) !important;
-  color: rgba(255, 255, 255, 1);
-  background-image: url(" https://imgur.com/DZz7ZYz.png");
-  padding-right: 16px;
-}
-
-.awn-toast-content {
-  margin-right: 55px;
-  line-height: 1.5em;
-  max-width: 800px;
-  height: 1280px;
-
-}
-
-#awn-toast-container.awn-top-left .awn-toast:first-child, #awn-toast-container.awn-top-right .awn-toast:first-child {
-  margin-top: 0px !important;
-}
-
-/*.awn-toast-icon { display: none; }*/
-#awn-toast-container {
-  transform-origin: top center;
-  transform: scale(2);
+.image.basic {
   position: absolute;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: unset !important;
+  right: -10px;
+  top: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 5px 10px 5px 5px; */
+  animation: scaleall 1s ;
+}
+
+.quantity-label {
+  position: absolute;
+  left: 45px;
+  background: rgba(24, 84, 197, 1);
+  color: rgba(255, 255, 255, 1);
+  padding: 7px 10px 7px 15px;
+  /* border-radius: 5px; */
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: float 5s;
+}
+
+.message {
+  font-size: 1em;
+  padding: 20px;
+  color: rgba(255, 255, 255, 1);
+  padding: 15px 30px 0 60px;
+}
+
+.support-message {
+  font-size: .9em;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 1);
+  padding: 0px 20px 15px 20px;
+  line-height: 1.25em;
+  display: flex;
+  align-items: flex-end;
+  word-break: break-word;
+  animation: fadeUp 0.75s ease-in-out;
+}
+
+.support-message>img {
+  height: 40px;
+  margin-left: 8px;
+  margin-top: -10px;
+}
+
+.supporter-avatar {
+  position: absolute;
+  animation: scaleall 0.5s ease-in-out;
+}
+
+.supporter-avatar>img {
+  border-radius: 9999px;
+  margin: 10px;
+  border-left: 2px solid rgba(24, 84, 197, 1);
+  border-bottom: 2px solid rgba(24, 84, 197, 1);
+}
+
+.letters-1 {
+  margin-bottom: 5px;
+}
+
+.letters-1, .letters-2 {
+  animation: fadeUp 0.5s ease-in-out;
+}
+
+.bubbles {
+  position: absolute;
+  animation: scaleall 1s ease-in-out;
+}
+
+.bubbles>div {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  background: rgba(49, 53, 71, 0.52);
+  border-radius: 9999px;
+  border-left: 3px solid rgba(24, 84, 197, 1);
+  border-bottom: 3px solid rgba(24, 84, 197, 1);
+  animation: float 4s;
+}
+
+.bubbles-top {
+  left: 0px;
+  bottom: 8px;
+}
+
+.bubbles.bubbles-top>.bubble-2 {
+  width: 0px;
+  height: 0px;
+  margin-left: 30px;
+  margin-top: 16px;
+  border-width: 2px;
+}
+
+.bubbles.bubbles-top>.bubble-3 {
+  width: 0px;
+  height: 0px;
+  margin-left: 20px;
+  margin-top: 31px;
+  border-width: 1px;
+}
+
+.bubbles>div.bubble-2 {
+  animation-delay: .25s;
+}
+
+.bubbles>div.bubble-3 {
+  animation-delay: .5s;
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.mr-7 {
+  margin-right: 7px;
+}
+
+@keyframes fadeUp {
+  from {left: 0px;}
+  to {left: 200px;}
+}
+
+@keyframes scaleup {
+  from {left: 0px;}
+  to {left: 200px;}
+}
+
+@keyframes scaleall {
+  from {left: 0px;}
+  to {left: 200px;}
+}
+
+@keyframes float {
+  from {left: 0px;}
+  to {left: 200px;}
+}
+
+.container {
+  transform-origin: center 10%;
+  transform: scale(0.8);
+  position: absolute;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
 }
 
-.awn-toast {
-  width: 500px;
-  height: 1500px;
-
+.message {
+  width: 220px;
+}
+.container {
+  transform: scale(0.8) translateX(-20px);
 }
