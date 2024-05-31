@@ -29,7 +29,6 @@ border: solid 1px var(--borderGoal);
     margin: 15px 0 5px 0;
 xclip-path: polygon(10% 0%, 100% 0%, 100% 50%, 100% 100%, 10% 100%, 0% 50%);
 
-
 }
 
 .container{
@@ -81,4 +80,5 @@ position: absolute;
     font-size: 1.2rem;
     color: var(--WarnaText);
     margin-top: 10px;
+    z-index: 2 !important;
 }
