@@ -39,7 +39,7 @@ background:transparent;
 color: transparent;
 font-size:1.5em;
     font-weight: bold;
-    animation: barglow 2s ease-out infinite;
+    xanimation: barglow 2s ease-out infinite;
 
 
 
@@ -75,7 +75,7 @@ animation: float 10s ease-in-out infinite both;
 .detail {
     font-weight: 700;
 margin-top: 25px !important;
-animation: float 8s ease-in-out infinite both;
+xanimation: float 8s ease-in-out infinite both;
 margin-left: 70px;
 position: absolute;
     font-size: 1.2rem;
