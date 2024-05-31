@@ -1,0 +1,16 @@
+
+
+
+
+#qr-container {
+    width: 250px;
+margin-left: 50px;
+margin-top: 70px;
+    padding: 6px;
+    border-radius: 20px;
+border: solid 1px var(--borderQR) !important;
+filter: drop-shadow(0 0 2rem var(--GlowQR));
+background:var(--bgQR) !important;
+
+
+}

@@ -1,0 +1,84 @@
+.progress-bar {
+    max-width: 100%;
+    xmin-width: 100%;
+    height: 100%;
+    border-radius: 999px !important;
+    background: var(--WarnaBar);
+
+
+
+}
+@keyframes barglow{
+0%{
+filter: drop-shadow(0 0 0rem var(--GlowBar));
+}
+
+50%{
+filter: drop-shadow(0 0 1rem var(--GlowBar));
+}
+100%{
+filter: drop-shadow(0 0 0rem var(--GlowBar));
+}
+}
+.progress-bar-container {
+filter: drop-shadow(0 0 0.75rem var(--GlowLuarBar));
+    height: 70px;
+    background-color: transparent!important;
+border: solid 1px var(--borderGoal);    
+    border-radius: 20px;
+    margin: 15px 0 5px 0;
+xclip-path: polygon(10% 0%, 100% 0%, 100% 50%, 100% 100%, 10% 100%, 0% 50%);
+
+
+}
+
+.container{
+margin-top: 60px;
+margin-left: 60px;
+background:transparent;
+color: transparent;
+font-size:1.5em;
+    font-weight: bold;
+    animation: barglow 2s ease-out infinite;
+
+
+
+}
+
+@keyframes float{
+
+0%{
+ transform: translatex(0px)
+}
+
+50%{
+ transform: translatex(20px)
+}
+100%{
+ transform: translatex(0px)
+}
+}
+
+.box {
+   
+    padding: 0px;
+    background: transparent;
+    border-radius: 7px;
+animation: float 10s ease-in-out infinite both;
+}
+.title {
+    font-family: var(--fontFamily);
+    font-size: 1.25rem;
+    display: none;
+    line-height: 1.25em;
+}
+.detail {
+    font-weight: 700;
+margin-top: 25px !important;
+animation: float 8s ease-in-out infinite both;
+margin-left: 70px;
+position: absolute;
+    font-size: 1.2rem;
+    color: var(--WarnaText);
+    margin-top: 10px;
+}

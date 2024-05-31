@@ -1,0 +1,175 @@
+          .container {
+                font-family: var(--containerFontFamily);
+                max-width: 400px;
+                border-radius: 28px;
+                background: var(--bgUtama);
+                border: solid 1px var(--warnaBorder);
+                padding: 7px 7px 2px 7px;
+                filter: drop-shadow(0 0 3rem var(--glowSemua));
+                margin-left: 200px;
+                margin-top:200px;
+            }
+            
+            .trophy {
+                margin-right: 10px;
+                padding-top: 5px;
+                display: none;
+            }
+
+.title {
+    font-size: 1.25em;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 0 0.5rem var(--glowTitle));
+}
+            
+.header {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 10px 16px;
+    background: rgb(255 255 255 / 0%);
+    color: var(--warnaTextAtas);
+    font-family: var(--fontFamily);
+    margin-bottom: 7px;
+    border: solid 0.01em var(--warnaBorder);
+    border-radius: 16px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.supporter .name, .supporter .unit {
+    color: white;
+}
+.supporter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    background: #fed849;
+    padding: 7px;
+    border-radius: 42px;
+    background: #fff;
+    border: solid 1px var(--warnaBorder);
+}
+
+.supporter:first-child {
+
+    background: var(--bgSupport1);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport1));
+}
+.supporter:nth-child(2) {
+
+    background: var(--bgSupport2);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport2));
+}
+.supporter:nth-child(3) {
+
+    background: var(--bgSupport3);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport3));
+}
+.supporter:nth-child(4) {
+
+    background: var(--bgSupport4);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport4));
+}
+.supporter:nth-child(5) {
+
+    background: var(--bgSupport5);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport5));
+}
+.supporter:nth-child(6) {
+
+    background: var(--bgSupport6);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport6));
+}
+.supporter:nth-child(7) {
+
+    background: var(--bgSupport7);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport7));
+}
+.supporter:nth-child(8) {
+
+    background: var(--bgSupport8);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport8));
+}
+.supporter:nth-child(9) {
+
+    background: var(--bgSupport9);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport9));
+}
+.supporter:nth-child(10) {
+
+    background: var(--bgSupport10);
+    filter: drop-shadow(0 0 0.5rem var(--glowSupport10));
+}
+
+
+.supporter:first-child .name {
+    color: var(--warnaTextSupport1) !important;
+}
+.supporter:first-child .unit{
+    color: var(--warnaTextSupport1) !important;
+}
+.supporter:nth-child(2) .name {
+    color: var(--warnaTextSupport2) !important;
+}
+.supporter:nth-child(2) .unit {
+    color: var(--warnaTextSupport2) !important;
+}
+
+.supporter:nth-child(3) .name{
+    color: var(--warnaTextSupport3) !important;
+}
+.supporter:nth-child(3) .unit {
+    color: var(--warnaTextSupport3) !important;
+}
+
+.supporter:nth-child(4) .name {
+    color: var(--warnaTextSupport4) !important;
+}
+.supporter:nth-child(4) .unit {
+    color: var(--warnaTextSupport4) !important;
+}
+
+.supporter:nth-child(5) .name{
+    color: var(--warnaTextSupport5) !important;
+}
+.supporter:nth-child(5) .unit{
+    color: var(--warnaTextSupport5) !important;
+}
+
+.supporter:nth-child(6) .name{
+    color: var(--warnaTextSupport6) !important;
+}
+.supporter:nth-child(6) .unit{
+    color: var(--warnaTextSupport6) !important;
+}
+
+.supporter:nth-child(7) .name{
+    color: var(--warnaTextSupport7) !important;
+}
+.supporter:nth-child(7) .unit{
+    color: var(--warnaTextSupport7) !important;
+}
+
+.supporter:nth-child(8) .name{
+    color: var(--warnaTextSupport8) !important;
+}
+.supporter:nth-child(8) .unit{
+    color: var(--warnaTextSupport8) !important;
+}
+
+.supporter:nth-child(9) .name{
+    color: var(--warnaTextSupport9) !important;
+}
+.supporter:nth-child(9) .unit{
+    color: var(--warnaTextSupport9) !important;
+}
+
+.supporter:nth-child(10) .name{
+    color: var(--warnaTextSupport10) !important;
+}
+.supporter:nth-child(10) .unit{
+    color: var(--warnaTextSupport10) !important;
+}

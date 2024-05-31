@@ -1,0 +1,197 @@
+.countdown svg {
+    margin-left: -10px;
+    display: none;
+}
+.countdown {
+    border-radius: 4px;
+    background: rgba(21, 19, 33, 0);
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 2rem var(--countdownGlow));
+}
+#title {
+    color: var(--titleColor);
+    line-height: 1;
+    font-size: 25px;
+    font-family: var(--fontFamily3);
+    text-align: center;
+    filter: drop-shadow(0 0 2rem var(--titleGlow));
+}
+#timer {
+    display: inline-block;
+    line-height: 1;
+    margin-top: 10px;
+    font-size: 50px;
+    font-family: var(--fontFamily3);
+    color: var(--timerColor);
+    text-align: left;
+    filter: drop-shadow(0 0 2rem var(--timerGlow));
+}
+.container {
+margin-left: 70px;
+margin-top: 70px;
+filter: drop-shadow(0 0 2rem var(--GlowSemua));
+    font-family: var(--fontFamily1);
+    display: inline-block;
+    transform: var(--containerTransform);
+    transform-origin: var(--containerTransformOrigin);
+    min-width: 360px;
+    max-width: 400px;
+    background: var(--bgUtama);
+    padding: 7px;
+    position: relative;
+    border-radius: 30px;
+    border: solid 0.3px var(--borderUtama);
+}
+
+.added-timer {
+    font-family: var(--fontFamily3);
+    background: var(--bgTimerAdded);
+    color: var(--warnaTimerAdded);
+    border: solid 1px var(--borderTimerAdded) ;
+    filter: drop-shadow(0 0 0.25rem var(--glowTimerAdded));
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 5px 15px;
+    border-radius: 50px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all .5s ease;
+}
+
+input[type=number] {
+    width: 70%;
+    padding: 12px 20px;
+    margin-right: 10px;
+    display: inline-block;
+    border: solid 1px var(--borderInput);
+    border-radius: 41px;
+    box-sizing: border-box;
+    background-color: var(--bgInput);
+    color: var(--warnaInput);
+    flex-grow: 1;
+    filter: drop-shadow(0 0 0.25rem var(--glowInput));
+    
+}
+
+.label {
+    font-size: 12px;
+    color: var(--warnaLabel) !important;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+button {
+    background-color: var(--bgPlayResetButton);
+    border: solid 1px var(--borderPlayResetButton);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 3px;
+    cursor: pointer;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 0.25rem var(--glowPlayResetButton));
+}
+
+.plusMinutes {
+    display: inline-block;
+    background: var(--bgPlusButton);
+    padding: 5px;
+    vertical-align: sub;
+    filter: drop-shadow(0 0 0.25rem var(--glowPlusButton));
+    border: solid 1px var(--borderPlusButton);
+}
+.minMinutes {
+    display: inline-block;
+    background: var(--bgMinButton);
+    padding: 5px;
+    vertical-align: sub;
+    filter: drop-shadow(0 0 0.25rem var(--glowMinButton));
+    border: solid 1px var(--borderMinButton);
+}
+.rule {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--ruleBackground);
+    color: var(--ruleTextColor);
+    padding: 8px 12px 8px 12px;
+    margin-top: 8px;
+    border-radius: 12.25rem;
+    filter: drop-shadow(0 0 0.75rem var(--Glowbaris));
+    border: solid 1px var(--borderBaris);
+}
+.rule:first-child {
+
+    background-color: var(--bgBaris1);
+    color: var(--warnaText1);
+    filter: drop-shadow(0 0 0.25rem var(--glowBaris1));
+    border: solid 1px var(--borderBaris1);
+    
+
+}
+.rule:nth-child(2) {
+    background-color: var(--bgBaris2);
+    color: var(--warnaText2);
+    filter: drop-shadow(0 0 0.25rem var(--glowBaris2));
+    border: solid 1px var(--borderBaris2);
+}
+.rule:nth-child(3) {
+    background-color: var(--bgBaris3);
+    color: var(--warnaText3);
+    filter: drop-shadow(0 0 0.25rem var(--glowBaris3));
+    border: solid 1px var(--borderBaris3);
+}
+.rule:nth-child(4) {
+    background-color: var(--bgBaris4);
+    color: var(--warnaText4);
+    filter: drop-shadow(0 0 0.25rem var(--glowBaris4));
+    border: solid 1px var(--borderBaris4);
+}
+.rule:nth-child(5) {
+    background-color: var(--bgBaris5);
+    color: var(--warnaText5);
+    filter: drop-shadow(0 0 0.75rem var(--glowBaris5));
+    border: solid 1px var(--borderBaris5);
+}
+.rule:nth-child(6) {
+    background-color: var(--bgBaris6);
+    color: var(--warnaText6);
+    filter: drop-shadow(0 0 0.75rem var(--glowBaris6));
+    border: solid 1px var(--borderBaris6);
+}
+.rule:nth-child(7) {
+    background-color: var(--bgBaris7);
+    color: var(--warnaText7);
+    filter: drop-shadow(0 0 0.75rem var(--glowBaris7));
+    border: solid 1px var(--borderBaris7);
+}
+.rule:nth-child(8) {
+    background-color: var(--bgBaris8);
+    color: var(--warnaText8);
+    filter: drop-shadow(0 0 0.75rem var(--glowBaris8));
+    border: solid 1px var(--borderBaris8);
+}
+.rule:nth-child(9) {
+    background-color: var(--bgBaris9);
+    color: var(--warnaText9);
+    filter: drop-shadow(0 0 0.75rem var(--glowBaris9));
+    border: solid 1px var(--borderBaris9);
+}
+.rule:nth-child(10) {
+    background-color: var(--bgBaris10);
+    color: var(--warnaText10);
+    filter: drop-shadow(0 0 0.75rem var(--glowBaris10));
+    border: solid 1px var(--borderBaris10);
+}
