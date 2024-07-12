@@ -38,7 +38,7 @@
 
 .theme-playful .message {
     font-size: 5em !important;
-    
+    text-align: center;
     padding: 20px;
     display: flex;
     color: var(--playfulMessageColor);
