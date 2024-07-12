@@ -7,11 +7,9 @@
 }
 
 .container {
-    width: 1201px;
-    margin-top: 450px !important;
-    margin-left: 650px;
+    
+    margin-top: 150px !important;
     display: none;
-    position: absolute;
     -webkit-transition: opacity 0.5s;
     transition: opacity 0.5s;
     font-family: var(--playfulFontFamily);
@@ -52,16 +50,16 @@
 }
 
 
-.bubbles.bubbles-top>.bubble-5 {
+.theme-playful img.unit-icon {
     width: 304px !important;
     height: 304px !important;
     position: absolute !important;
-    top: -16px !important;
-    left: 287px !important;
+    top: 10px !important;
+    left: -70px !important;
     z-index: 1;
     background-color: transparent !important;
-    content: url(https://rainpixel.netlify.app/nahkoda.png);
-    xborder: solid 0px red !important;
+    content: url(https://rainpixel.netlify.app/gema/nahkoda.png);
+    border: solid 0px red !important;
     
 	-webkit-animation: nahkoda 3s ease-out both !important;
 	        animation: nahkoda 3s ease-out both !important;
@@ -106,15 +104,14 @@
 }
 
 
-.stream-content {
-    
+.theme-playful .stream-content {
     background: transparent !important;
     border-radius: 16px;
     border: 0px !important;
     border-left: 3px solid var(--playfulUnitIconBorderLeft);
     border-bottom: 3px solid var(--playfulUnitIconBorderBottom);
-    font-family: kingthings;
-    color: #012C78;
+    font-family: var(--playfulFontFamily);
+    
     -webkit-animation: scale 2000s   !important;
     animation: scale 2000s !important;
     animation-iteration-count: infinite;
@@ -133,49 +130,48 @@
     }
 }
 
-
-
-.bubble-7 {
-    xborder: solid 1px red;
-    margin-left: 70px;
-    margin-top:170px;
-    width: 572px ;
-    height: 378px ;
-    display: flex;
-    opacity: 1;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: flex-end;
-    align-items: center;
-	transform-origin: bottom center;
-	    
-	-webkit-animation: slide-in-top 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-in-top 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-.media {
-position: absolute !important;
+.theme-playful .media {
+     position: absolute !important;
+    display: none;
+    width: 672px !important;
+    height: 378px !important;
+    margin-top: -35px !important;
+    margin-bottom: 20px ;
     text-align: center;
+    left: -173px !important;
     z-index: 3;
-animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !important;
-    border-radius: 35px;
-
+    
+	-webkit-animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !important;
+	        animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !important;
 }
-@keyframes media {
+
+@-webkit-keyframes media {
   0% {
-    -webkit-transform: translateY(50px) scale(2.5);
-            transform: translateY(50px) scale(2.5);
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
     opacity: 0;
   }
   100% {
-    -webkit-transform: translateY(0) scale(2.5);
-            transform: translateY(0) scale(2.5);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes media {
+  0% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
     opacity: 1;
   }
 }
 
 
-.image.basic {
+.theme-playful .image.basic {
     position: absolute;
     right: -10px;
     top: -10px;
@@ -189,19 +185,19 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
     animation: scaleall 0s ease-in-out !important;
 }
 
-.bubbles.bubbles-top>.bubble-4 {
+.theme-playful .quantity-label {
     width: 19px !important;
     height: 800px !important;
     position: absolute !important;
     top: 150px !important;
-    left: 430px !important;
+    left: 63px !important;
     z-index: -1;
     transform-origin: top center !important;
     
     
     background-color: transparent !important;
-    content: url(https://rainpixel.netlify.app/chain.png);
-    xborder: solid 0px red !important;
+    content: url(https://rainpixel.netlify.app/gema/chain.png);
+    border: solid 0px red !important;
     
 	-webkit-animation: chain 2s ease-in-out 0.7s both !important;
 	        animation: chain 2s ease-in-out 0.7s both !important;
@@ -255,18 +251,17 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
 }
 
 
-.message {
+.theme-playful .message {
     font-size: 1em;
     padding: 20px;
     color: var(--playfulMessageColor);
     padding: 15px 30px 0 75px;
     position: absolute !important;
-    top: -90px;
-    left: -30px;
+    top: -70px;
 
 }
 
-.support-message {
+.theme-playful .support-message {
     width: 580px !important;
     height: 150px !important;
     font-size: 2em !important;
@@ -315,25 +310,25 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
 }
 
 
-.support-message>img {
+.theme-playful .support-message>img {
     height: 40px;
     margin-left: 8px;
     margin-top: -10px;
 }
 
 
-.bubbles.bubbles-top>.bubble-6 {
+.theme-playful .supporter-avatar {
     width: 328px !important;
     height: 416px !important;
     position: absolute !important;
     top: 750px !important;
-    left: 257px !important;
+    left: 303px !important;
     z-index: -1;
     
     
     background-color: transparent !important;
-    content: url(https://rainpixel.netlify.app/Anchor.png);
-    xborder: solid 0px red !important;
+    content: url(https://rainpixel.netlify.app/gema/Anchor.png);
+    border: solid 0px red !important;
     transform-origin: top center !important;
 	-webkit-animation: anchor 2s ease-in-out 0.7s both !important;
 	        animation: anchor 2s ease-in-out 0.7s both !important;
@@ -378,13 +373,13 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
 
 
 
-.supporter-avatar>img {
+.theme-playful .supporter-avatar>img {
 
 }
-.action {
+.theme-playful .action {
     visibility: hidden !important;
 }
-.supporter-name {
+.theme-playful .supporter-name {
     width: 620px !important;
     font-size: 2.4em !important;
     margin-left: 110px !important;
@@ -406,7 +401,7 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
 	        animation: fade-in-bck 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) 4s both !important;
 }
 
-.letters-2 {
+.theme-playful .letters-2 {
     width: 620px !important;
     font-size: 2em !important;
     margin-left: 110px !important;
@@ -428,17 +423,17 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
 	        animation: fade-in-bck 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) 4s both !important;
 }
 
-.supporter-name,.quantity {
+.theme-playful .supporter-name,.theme-playful .quantity {
     margin-right: 5px
 }
 
-.bubbles {
+.theme-playful .bubbles {
     position: absolute !important;
     -webkit-animation: scaleall 0s ease-in-out !important;
     animation: scaleall 0s ease-in-out !important;
 }
 
-.bubbles>div {
+.theme-playful .bubbles>div {
     position: absolute !important;
     width: 25px;
     height: 25px;
@@ -450,23 +445,23 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
     animation: float 4s infinite
 }
 
-.bubbles-top {
+.theme-playful .bubbles-top {
     position: absolute !important;
     left: 30px;
     bottom: 8px
 }
 
-.bubbles.bubbles-top>.bubble-1 {
+.theme-playful .bubbles.bubbles-top>.bubble-1 {
     width: 160px !important;
     height: 137px !important;
     position: absolute !important;
-    top: 957px !important;
-    left: 400px !important;
-    z-index: 2;
+    top: 967px !important;
+    left: 415px !important;
+    z-index: -1;
     border-radius: 0px !important;
     background-color: transparent !important;
-    content: url(https://rainpixel.netlify.app/crateshine.png);
-    xborder: solid 0px red !important;
+    content: url(https://rainpixel.netlify.app/gema/crateshine.png);
+    border: solid 0px red !important;
     
 	-webkit-animation: crate 2s ease-in-out 0.7s both !important;
 	        animation: crate 2s ease-in-out 0.7s both !important;
@@ -508,7 +503,7 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
   }
 }
 
-.bubbles.bubbles-top>.bubble-2 {
+.theme-playful .bubbles.bubbles-top>.bubble-2 {
     width: 799px !important;
     height: 520px !important;
     position: absolute !important;
@@ -519,8 +514,8 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
     border-radius: 0px !important;
     
     background-color: transparent !important;
-    content: url(https://rainpixel.netlify.app/letter.png);
-    xborder: solid 0px red !important;
+    content: url(https://rainpixel.netlify.app/gema/letter.png);
+    border: solid 0px red !important;
     
 	-webkit-animation: letter 1.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) 3s both !important;
 	        animation: letter 1.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) 3s both !important;
@@ -559,7 +554,7 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
 }
 
 
-.bubbles.bubbles-top>.bubble-3 {
+.theme-playful .bubbles.bubbles-top>.bubble-3 {
     width: 62px !important;
     height: 62px !important;
     position: absolute !important;
@@ -570,8 +565,8 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
     border-radius: 0px !important;
     
     background-color: transparent !important;
-    content: url(https://rainpixel.netlify.app/compass.png);
-    xborder: solid 0px red !important;
+    content: url(https://rainpixel.netlify.app/gema/compass.png);
+    border: solid 0px red !important;
     
 	-webkit-animation: compass 4s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s infinite !important;
 	        animation: compass 4s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s infinite !important;
@@ -592,24 +587,24 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
     }
 }
 
-.bubbles>div.bubble-2 {
+.theme-playful .bubbles>div.bubble-2 {
     -webkit-animation-delay: .25s;
     animation-delay: .25s
 }
 
-.bubbles>div.bubble-3 {
+.theme-playful .bubbles>div.bubble-3 {
     -webkit-animation-delay: .5s;
     animation-delay: .5s
 }
 
-.player,.animation {
+.theme-playful .player,.theme-playful .animation {
     position: absolute !important;
     width: 672px !important;
     height: 378px !important;
     margin-left: 0px;
 }
 
-.animation iframe,.player iframe {
+.theme-playful .animation iframe,.theme-playful .player iframe {
     border-radius: 30px !important;
     position: absolute !important;
     border-radius: 3px;
@@ -617,8 +612,20 @@ animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !import
     height: 100%
 }
 
+.theme-playful .player:empty,.theme-playful .animation:empty {
+     position: absolute !important;
+    display: none
+}
 
-
+.theme-playful.is-media .media {
+     position: absolute !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center
+}
 
 @-webkit-keyframes fadeUp {
     0% {
