@@ -1,0 +1,753 @@
+@font-face {
+    font-family: "kingthings";
+    src: url("https://assets.trakteer.id/fonts/kingthings_clarity1.1-webfont.eot");
+    src: url("https://assets.trakteer.id/fonts/kingthings_clarity1.1-webfont.eot") format("embedded-opentype"),url("https://assets.trakteer.id/fonts/kingthings_clarity1.1-webfont.svg") format("svg"),url("https://assets.trakteer.id/fonts/kingthings_clarity1.1-webfont.woff2") format("woff2"),url("https://assets.trakteer.id/fonts/kingthings_clarity1.1-webfont.woff") format("woff"),url("https://assets.trakteer.id/fonts/kingthings_clarity1.1-webfont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal
+}
+
+.container {
+    width: 1201px;
+    margin-top: 450px !important;
+    margin-left: 650px;
+    display: none;
+    position: absolute;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+    font-family: var(--playfulFontFamily);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start
+    
+	-webkit-animation: slide-in-top 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-top 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@-webkit-keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+            transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+.bubbles.bubbles-top>.bubble-5 {
+    width: 304px !important;
+    height: 304px !important;
+    position: absolute !important;
+    top: -16px !important;
+    left: 287px !important;
+    z-index: 1;
+    background-color: transparent !important;
+    content: url(https://rainpixel.netlify.app/nahkoda.png);
+    xborder: solid 0px red !important;
+    
+	-webkit-animation: nahkoda 3s ease-out both !important;
+	        animation: nahkoda 3s ease-out both !important;
+    
+}
+
+@-webkit-keyframes nahkoda {
+  0% {
+    -webkit-transform:  rotate(0deg);
+            transform:  rotate(0deg);
+    opacity: 1;
+  }
+  70% {
+    -webkit-transform:  rotate(600deg);
+            transform:  rotate(600deg);
+    opacity: 1;
+  }
+  
+  100% {
+    -webkit-transform:  rotate(0deg);
+            transform:  rotate(0deg);
+    opacity: 1;
+  }
+}
+@keyframes nahkoda {
+  0% {
+    -webkit-transform:  rotate(0deg);
+            transform:  rotate(0deg);
+    opacity: 1;
+  }
+   70% {
+    -webkit-transform:  rotate(600deg);
+            transform:  rotate(600deg);
+    opacity: 1;
+  }
+  
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+
+
+.stream-content {
+    
+    background: transparent !important;
+    border-radius: 16px;
+    border: 0px !important;
+    border-left: 3px solid var(--playfulUnitIconBorderLeft);
+    border-bottom: 3px solid var(--playfulUnitIconBorderBottom);
+    font-family: kingthings;
+    color: #012C78;
+    -webkit-animation: scale 2000s   !important;
+    animation: scale 2000s !important;
+    animation-iteration-count: infinite;
+    transform-origin: top center !important;
+    position: absolute;
+    width: 100%;
+    width: calc(100% - 60px);
+}
+
+@keyframes scale{
+    0%{
+        transform: scale(var(--scale));
+    }
+    100%{
+        transform: scale(var(--scale));
+    }
+}
+
+
+
+.bubble-7 {
+    xborder: solid 1px red;
+    margin-left: 70px;
+    margin-top:170px;
+    width: 572px ;
+    height: 378px ;
+    display: flex;
+    opacity: 1;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-end;
+    align-items: center;
+	transform-origin: bottom center;
+	    
+	-webkit-animation: slide-in-top 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-top 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+.media {
+position: absolute !important;
+    text-align: center;
+    z-index: 3;
+animation: media 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 3.8s both !important;
+    border-radius: 35px;
+
+}
+@keyframes media {
+  0% {
+    -webkit-transform: translateY(50px) scale(2.5);
+            transform: translateY(50px) scale(2.5);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0) scale(2.5);
+            transform: translateY(0) scale(2.5);
+    opacity: 1;
+  }
+}
+
+
+.image.basic {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-animation: scaleall 0s ease-in-out !important;
+    animation: scaleall 0s ease-in-out !important;
+}
+
+.bubbles.bubbles-top>.bubble-4 {
+    width: 19px !important;
+    height: 800px !important;
+    position: absolute !important;
+    top: 150px !important;
+    left: 430px !important;
+    z-index: -1;
+    transform-origin: top center !important;
+    
+    
+    background-color: transparent !important;
+    content: url(https://rainpixel.netlify.app/chain.png);
+    xborder: solid 0px red !important;
+    
+	-webkit-animation: chain 2s ease-in-out 0.7s both !important;
+	        animation: chain 2s ease-in-out 0.7s both !important;
+}
+
+@-webkit-keyframes chain {
+  0% {
+    -webkit-transform: scaleY(0.2);
+            transform: scaleY(0.2);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scaleY(1.4);
+            transform: scaleY(1.4);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+}
+}
+@keyframes chain {
+  0% {
+    -webkit-transform: scaleY(0.2);
+            transform: scaleY(0.2);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scaleY(1.4);
+            transform: scaleY(1.4);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}
+
+
+.message {
+    font-size: 1em;
+    padding: 20px;
+    color: var(--playfulMessageColor);
+    padding: 15px 30px 0 75px;
+    position: absolute !important;
+    top: -90px;
+    left: -30px;
+
+}
+
+.support-message {
+    width: 580px !important;
+    height: 150px !important;
+    font-size: 2em !important;
+    margin-left: 180px !important;
+    top: 530px !important;
+    position: absolute !important;
+    xborder: solid 1px red;
+    z-index: 3;
+    
+    margin-right: 0px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-content: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+
+	-webkit-animation: fade-in-bck 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) 4s both !important;
+	        animation: fade-in-bck 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) 4s both !important;
+}
+
+@-webkit-keyframes fade-in-bck {
+  0% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-bck {
+  0% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+.support-message>img {
+    height: 40px;
+    margin-left: 8px;
+    margin-top: -10px;
+}
+
+
+.bubbles.bubbles-top>.bubble-6 {
+    width: 328px !important;
+    height: 416px !important;
+    position: absolute !important;
+    top: 750px !important;
+    left: 257px !important;
+    z-index: -1;
+    
+    
+    background-color: transparent !important;
+    content: url(https://rainpixel.netlify.app/Anchor.png);
+    xborder: solid 0px red !important;
+    transform-origin: top center !important;
+	-webkit-animation: anchor 2s ease-in-out 0.7s both !important;
+	        animation: anchor 2s ease-in-out 0.7s both !important;
+}
+
+
+@-webkit-keyframes anchor {
+  0% {
+    -webkit-transform: translateY(-500px);
+            transform: translateY(-500px);
+    opacity: 1;
+  }
+   50% {
+    -webkit-transform: translateY(500px);
+            transform: translateY(500px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes anchor {
+  0% {
+    -webkit-transform: translateY(-500px);
+            transform: translateY(-500px);
+    opacity: 1;
+  }
+   50% {
+    -webkit-transform: translateY(500px);
+            transform: translateY(500px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+
+
+.supporter-avatar>img {
+
+}
+.action {
+    visibility: hidden !important;
+}
+.supporter-name {
+    width: 620px !important;
+    font-size: 2.4em !important;
+    margin-left: 110px !important;
+    top: 510px !important;
+    position: absolute !important;
+    
+    xborder: solid 1px red;
+    
+    z-index: 3;
+    margin-right: 0px !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+	-webkit-animation: fade-in-bck 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) 4s both !important;
+	        animation: fade-in-bck 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) 4s both !important;
+}
+
+.letters-2 {
+    width: 620px !important;
+    font-size: 2em !important;
+    margin-left: 110px !important;
+    top: 550px !important;
+    position: absolute !important;
+    
+    xborder: solid 1px red;
+    z-index: 3;
+    
+    margin-right: 0px !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+	-webkit-animation: fade-in-bck 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) 4s both !important;
+	        animation: fade-in-bck 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) 4s both !important;
+}
+
+.supporter-name,.quantity {
+    margin-right: 5px
+}
+
+.bubbles {
+    position: absolute !important;
+    -webkit-animation: scaleall 0s ease-in-out !important;
+    animation: scaleall 0s ease-in-out !important;
+}
+
+.bubbles>div {
+    position: absolute !important;
+    width: 25px;
+    height: 25px;
+    background: var(--playfulStreamContentBg);
+    border-radius: 9999px;
+    border-left: 3px solid var(--playfulSupportAvatarBorder);
+    border-bottom: 3px solid var(--playfulSupportAvatarBorder);
+    -webkit-animation: float 4s infinite;
+    animation: float 4s infinite
+}
+
+.bubbles-top {
+    position: absolute !important;
+    left: 30px;
+    bottom: 8px
+}
+
+.bubbles.bubbles-top>.bubble-1 {
+    width: 160px !important;
+    height: 137px !important;
+    position: absolute !important;
+    top: 957px !important;
+    left: 400px !important;
+    z-index: 2;
+    border-radius: 0px !important;
+    background-color: transparent !important;
+    content: url(https://rainpixel.netlify.app/crateshine.png);
+    xborder: solid 0px red !important;
+    
+	-webkit-animation: crate 2s ease-in-out 0.7s both !important;
+	        animation: crate 2s ease-in-out 0.7s both !important;
+}
+
+@-webkit-keyframes crate {
+  0% {
+    -webkit-transform: translateY(500px);
+            transform: translateY(500px);
+    opacity: 0;
+  }
+   50% {
+    -webkit-transform: translateY(500px);
+            transform: translateY(500px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes crate {
+  0% {
+    -webkit-transform: translateY(500px);
+            transform: translateY(500px);
+    opacity: 0;
+  }
+
+   50% {
+    -webkit-transform: translateY(500px);
+            transform: translateY(500px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bubbles.bubbles-top>.bubble-2 {
+    width: 799px !important;
+    height: 520px !important;
+    position: absolute !important;
+    top: 290px !important;
+    left: 35px !important;
+    z-index: 2;
+    
+    border-radius: 0px !important;
+    
+    background-color: transparent !important;
+    content: url(https://rainpixel.netlify.app/letter.png);
+    xborder: solid 0px red !important;
+    
+	-webkit-animation: letter 1.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) 3s both !important;
+	        animation: letter 1.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) 3s both !important;
+}
+@-webkit-keyframes letter {
+  0% {
+    -webkit-transform: translateY(250px) translateX(50px) rotateX(30deg) scale(0);
+            transform: translateY(250px) translateX(50px) rotateX(30deg) scale(0);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(0) translateX(0px) rotateX(0) scale(1);
+            transform: translateY(0) translateX(0px) rotateX(0) scale(1);
+    -webkit-transform-origin: 50% -1400px;
+            transform-origin: 50% -1400px;
+    opacity: 1;
+  }
+}
+@keyframes letter {
+  0% {
+    -webkit-transform: translateY(250px) translateX(50px) rotateX(30deg) scale(0);
+            transform: translateY(250px) translateX(50px) rotateX(30deg) scale(0);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(0) translateX(0px) rotateX(0) scale(1);
+            transform: translateY(0) translateX(0px) rotateX(0) scale(1);
+    -webkit-transform-origin: 50% -1400px;
+            transform-origin: 50% -1400px;
+    opacity: 1;
+  }
+}
+
+
+.bubbles.bubbles-top>.bubble-3 {
+    width: 62px !important;
+    height: 62px !important;
+    position: absolute !important;
+    top: 105px !important;
+    left: 408px !important;
+    z-index: 2;
+    
+    border-radius: 0px !important;
+    
+    background-color: transparent !important;
+    content: url(https://rainpixel.netlify.app/compass.png);
+    xborder: solid 0px red !important;
+    
+	-webkit-animation: compass 4s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s infinite !important;
+	        animation: compass 4s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s infinite !important;
+}
+
+@keyframes compass{
+    0%{
+        transform: rotate(0deg);
+    }
+    40%{
+        transform: rotate(-77deg);
+    }
+    70%{
+        transform: rotate(32deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+.bubbles>div.bubble-2 {
+    -webkit-animation-delay: .25s;
+    animation-delay: .25s
+}
+
+.bubbles>div.bubble-3 {
+    -webkit-animation-delay: .5s;
+    animation-delay: .5s
+}
+
+.player,.animation {
+    position: absolute !important;
+    width: 672px !important;
+    height: 378px !important;
+    margin-left: 0px;
+}
+
+.animation iframe,.player iframe {
+    border-radius: 30px !important;
+    position: absolute !important;
+    border-radius: 3px;
+    width: 100%;
+    height: 100%
+}
+
+
+
+
+@-webkit-keyframes fadeUp {
+    0% {
+        -webkit-transform: translateY(15px);
+        transform: translateY(15px);
+        opacity: 0
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1
+    }
+}
+
+@keyframes fadeUp {
+    0% {
+        -webkit-transform: translateY(15px);
+        transform: translateY(15px);
+        opacity: 0
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes scaleup {
+    0% {
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+        opacity: 0
+    }
+
+    100% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+        opacity: 1
+    }
+}
+
+@keyframes scaleup {
+    0% {
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+        opacity: 0
+    }
+
+    100% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes scaleall {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0
+    }
+
+    64% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        opacity: 1
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1
+    }
+}
+
+@keyframes scaleall {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 0
+    }
+
+    64% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+        opacity: 1
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes float {
+    0% {
+        -webkit-transform: translatey(0px);
+        transform: translatey(0px)
+    }
+
+    50% {
+        -webkit-transform: translatey(-7px);
+        transform: translatey(-7px)
+    }
+
+    100% {
+        -webkit-transform: translatey(0px);
+        transform: translatey(0px)
+    }
+}
+
+@keyframes float {
+    0% {
+        -webkit-transform: translatey(0px);
+        transform: translatey(0px)
+    }
+
+    50% {
+        -webkit-transform: translatey(-7px);
+        transform: translatey(-7px)
+    }
+
+    100% {
+        -webkit-transform: translatey(0px);
+        transform: translatey(0px)
+    }
+}
+
+/*# sourceMappingURL=theme-playful.css.map?9dfe43e38b9fdf83efb2851055e35e86*/
