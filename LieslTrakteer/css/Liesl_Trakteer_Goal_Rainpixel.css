@@ -1,0 +1,66 @@
+.goal-container {
+    width: 300px;
+    padding: 16px;
+    background: transparent;
+    border: 0px;
+    box-shadow: 0 0px 0 var(--border);
+    border-radius: 0px;
+    font-family: var(--fontFamily);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--textColor);
+}
+
+.goal__note {
+    
+    position: absolute;
+    content: url(https://rainpixel.netlify.app/LieslTrakteer/lantern.png);
+    transform: rotate(90deg);
+    left: 900px !important;
+    top: -500px;
+}
+
+.goal__number-progress {
+    
+    position: absolute;
+    content: url(https://rainpixel.netlify.app/LieslTrakteer/bunga.png);
+    transform: rotate(90deg);
+    left: 700px !important;
+    top: -270px;
+}
+
+.creator-pageurl {
+    
+    position: absolute;
+    content: url(https://rainpixel.netlify.app/LieslTrakteer/scene1.gif);
+    transform: rotate(90deg);
+    left: 1330px !important;
+    top: 97px;
+}
+
+.goal__graph-progress {
+    margin-left: 490px;
+    margin-top: 180px;
+    background: transparent;
+    border-radius: 4px;
+    width: 1150px;
+}
+
+.goal__graph-progress .progress {
+    height: 1140%;
+    max-width: 20%;
+    min-width: 0% !important;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #eb2a42, #fff3a1);
+    font-size: 52px;
+    line-height: 12px;
+    text-align: center !important;
+    justify-content: center; /* Center horizontally */
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    color: var(--textProgressColor);
+
+}
