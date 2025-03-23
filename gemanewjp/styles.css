@@ -10,7 +10,7 @@ left: 500px;
     transform: scale(1.1);
     transform-origin: center top;
     font-family: Arial, sans-serif;
-    background: #272739; 
+    background: transparent; 
     overflow: hidden;
 }
 
@@ -297,7 +297,7 @@ left: 500px;
 .wrappernyawrapper-kipas{
     position: absolute;
     margin-top: 535px;
-    margin-left: 1232px;
+    margin-left: 632px;
     border: solid 0px red;
     animation: slide-in-elliptic-top-fwd 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
@@ -732,20 +732,20 @@ border: solid 2px #2D5058;
 }
 .unit {
     background-color: #CA3D33;
-
+    
     position: absolute;
-    border-radius: 300px;
-    width: 40px;
+    border-radius: 20px;
+    width: auto;
     height: 40px;
     border: solid 8px #FFFFB5;
-    left: -380px;
-    top: 260px;
+    left: 500px;
+    top: -110px;
     font-size: 3em;
     padding: 15px;
     font-weight: bold;
     color: #FFFFB5;
     filter: drop-shadow(0 0 3px #FFF680);
-
+     z-index:15;
 
     display: flex;
     align-items: center;
