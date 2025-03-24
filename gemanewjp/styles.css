@@ -763,26 +763,36 @@ border: solid 2px #2D5058;
 }
 .unit {
     background-color: #CA3D33;
-    
     position: absolute;
     border-radius: 20px;
     width: auto;
     height: 40px;
     border: solid 8px #FFFFB5;
     left: 500px;
-    top: -110px;
+    top: 100px; /* Posisi awal 100px */
     font-size: 3em;
     padding: 15px;
     font-weight: bold;
     color: #FFFFB5;
     filter: drop-shadow(0 0 3px #FFF680);
-     z-index:15;
-
+    z-index: 15;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+
+    animation: slideInFromBottom 1s ease-out 2.2s forwards; /* Animasi dengan delay 2.2 detik */
 }
+
+@keyframes slideInFromBottom {
+    0% {
+        top: 100px; /* Posisi awal */
+    }
+    100% {
+        top: -110px; /* Posisi akhir */
+    }
+}
+
 
 
 .messagenya {
