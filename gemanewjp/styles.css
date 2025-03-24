@@ -768,7 +768,7 @@ border: solid 2px #2D5058;
     width: auto;
     height: 40px;
     border: solid 8px #FFFFB5;
-    left: 560px;
+    left: 760px;
     top: 80px; /* Posisi awal 100px */
     font-size: 3em;
     padding: 5px;
@@ -788,10 +788,10 @@ border: solid 2px #2D5058;
 
 @keyframes slideInFromBottom {
     0% {
-        top: 100px; /* Posisi awal */
+        top: 40px; /* Posisi awal */
     }
     100% {
-        top: -110px; /* Posisi akhir */
+        top: -800px; /* Posisi akhir */
     }
 }
 
