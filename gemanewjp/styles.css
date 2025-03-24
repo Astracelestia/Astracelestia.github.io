@@ -28,7 +28,7 @@ body, html {
         left: 650px; /* Mulai dari posisi di luar layar di kiri */
     }
     to {
-        left: 900; /* Posisi akhir pada 0px dari kiri */
+        left: 900px; /* Posisi akhir pada 0px dari kiri */
     }
 }
 
