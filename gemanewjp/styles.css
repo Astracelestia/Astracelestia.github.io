@@ -21,6 +21,7 @@ body, html {
     width: 235px;
     top: 62px;
     animation: slideInGif 2.5s ease-out 2.5s forwards; /* 2.5 detik untuk animasi, delay 2.5 detik */
+    z-index: -1;
 }
 
 @keyframes slideInGif {
