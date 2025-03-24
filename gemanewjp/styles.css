@@ -20,7 +20,7 @@ body, html {
     left: 1250px; /* Mulai dari posisi di luar layar di kiri */
     height: 435px;
     width: 435px;
-    top: 62px;
+    top: 162px;
     animation: slideInGif 1.5s ease-out 2.2s forwards; /* 2.5 detik untuk animasi, delay 2.5 detik */
     z-index: -35;
     opacity: 0;
