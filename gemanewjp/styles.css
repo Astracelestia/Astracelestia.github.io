@@ -18,8 +18,8 @@ body, html {
 .gif img {
     position: absolute;
     left: 1250px; /* Mulai dari posisi di luar layar di kiri */
-    height: 235px;
-    width: 235px;
+    height: 435px;
+    width: 435px;
     top: 62px;
     animation: slideInGif 1s ease-out 2.5s forwards; /* 2.5 detik untuk animasi, delay 2.5 detik */
     z-index: -35;
@@ -31,12 +31,15 @@ body, html {
         left: 1250px; /* Mulai dari posisi di luar layar di kiri */
         opacity:0;
     }
+    89%{
+    opacity: 0;
+    }
     90%{
     opacity: 1;
     }
     
     100% {
-        left: 1700px; /* Posisi akhir pada 0px dari kiri */
+        left: 1750px; /* Posisi akhir pada 0px dari kiri */
         opacity: 1;
     }
 }
