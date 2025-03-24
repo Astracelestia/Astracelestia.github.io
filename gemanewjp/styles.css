@@ -31,8 +31,9 @@ body, html {
         left: 1250px; /* Mulai dari posisi di luar layar di kiri */
         opacity:0;
     }
-    89%{
+    85%{
     opacity: 0;
+    left: 1250px;
     }
     90%{
     opacity: 1;
