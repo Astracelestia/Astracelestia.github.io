@@ -15,7 +15,7 @@ body, html {
     
 }
 
-.gif img {
+.gif {
     position: absolute;
     left: 1250px; /* Mulai dari posisi di luar layar di kiri */
     height: 415px;
