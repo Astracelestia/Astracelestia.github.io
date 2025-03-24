@@ -791,7 +791,7 @@ border: solid 2px #2D5058;
         top: 40px; /* Posisi awal */
     }
     100% {
-        top: -800px; /* Posisi akhir */
+        top: -80px; /* Posisi akhir */
     }
 }
 
