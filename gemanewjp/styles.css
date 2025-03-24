@@ -775,12 +775,14 @@ border: solid 2px #2D5058;
     font-weight: bold;
     color: #FFFFB5;
     filter: drop-shadow(0 0 3px #FFF680);
-    z-index: -45 !important;
+    z-index: -6 !important;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-
+    font-family: "Julee", serif;
+  font-weight: 400;
+  font-style: normal;   text-align: right;
     animation: slideInFromBottom 1s ease-out 3.2s forwards !important; /* Animasi dengan delay 2.2 detik */
 }
 
