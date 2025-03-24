@@ -23,6 +23,8 @@ body, html {
     top: 190px;
     animation: slideInGif 1.5s ease-out 2.2s forwards; /* 2.5 detik untuk animasi, delay 2.5 detik */
     z-index: -35;
+    transform: scale(2);
+    transform-origin: top left;
     opacity: 0;
 }
 
