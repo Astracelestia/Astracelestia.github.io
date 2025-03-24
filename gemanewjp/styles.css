@@ -14,13 +14,22 @@ body, html {
     overflow: hidden;
 }
 
-.gif img{
+.gif img {
     position: absolute;
-    left: 900px;
-    height:235px;
-    width:235px;
+    left: -250px; /* Mulai dari posisi di luar layar di kiri */
+    height: 235px;
+    width: 235px;
     top: 62px;
-    
+    animation: slideInGif 2.5s ease-out 2.5s forwards; /* 2.5 detik untuk animasi, delay 2.5 detik */
+}
+
+@keyframes slideInGif {
+    from {
+        left: -250px; /* Mulai dari posisi di luar layar di kiri */
+    }
+    to {
+        left: 0; /* Posisi akhir pada 0px dari kiri */
+    }
 }
 
 .wrapper-utama {
