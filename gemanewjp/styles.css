@@ -784,13 +784,22 @@ border: solid 2px #2D5058;
   font-weight: 400;
   font-style: normal;   text-align: right;
     animation: slideInFromBottom 1s ease-out 3.2s forwards !important; /* Animasi dengan delay 2.2 detik */
+    opacity: 0;
 }
 
 @keyframes slideInFromBottom {
     0% {
         top: 40px; /* Posisi awal */
+        opacity: 0;
+    }
+    80%{
+        opacity: 0;
+    }
+    90%{
+        opacity: 1;
     }
     100% {
+        opacity: 1;
         top: -80px; /* Posisi akhir */
     }
 }
