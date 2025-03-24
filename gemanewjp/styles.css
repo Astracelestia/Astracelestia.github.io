@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Julee&display=swap');
 body, html {
     top: 500px;
-left: 500px;
+    left: 500px;
     padding: 0;
     box-sizing: border-box;
     transform: scale(1.1);
@@ -19,7 +19,7 @@ left: 500px;
     left: 900px;
     height:235px;
     width:235px;
-    top: 65px;
+    top: 62px;
     
 }
 
