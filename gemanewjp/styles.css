@@ -775,7 +775,7 @@ border: solid 2px #2D5058;
     font-weight: bold;
     color: #FFFFB5;
     filter: drop-shadow(0 0 3px #FFF680);
-    z-index: -15;
+    z-index: -45 !important;
     display: flex;
     align-items: center;
     justify-content: center;
