@@ -771,11 +771,11 @@ border: solid 2px #2D5058;
     left: 500px;
     top: 100px; /* Posisi awal 100px */
     font-size: 3em;
-    padding: -15px;
+    padding: 5px;
     font-weight: bold;
     color: #FFFFB5;
     filter: drop-shadow(0 0 3px #FFF680);
-    z-index: 15;
+    z-index: -15;
     display: flex;
     align-items: center;
     justify-content: center;
