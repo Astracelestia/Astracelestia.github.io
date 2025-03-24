@@ -781,7 +781,7 @@ border: solid 2px #2D5058;
     justify-content: center;
     text-align: center;
 
-    animation: slideInFromBottom 1s ease-out 2.2s forwards; /* Animasi dengan delay 2.2 detik */
+    animation: slideInFromBottom 1s ease-out 3.2s forwards !important; /* Animasi dengan delay 2.2 detik */
 }
 
 @keyframes slideInFromBottom {
