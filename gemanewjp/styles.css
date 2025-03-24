@@ -328,7 +328,7 @@ body, html {
 .wrappernyawrapper-kipas{
     position: absolute;
     margin-top: 535px;
-    margin-left: 172px;
+    margin-left: 165px;
     border: solid 0px red;
     animation: slide-in-elliptic-top-fwd 1.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
