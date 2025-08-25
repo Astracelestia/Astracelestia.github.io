@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<title>Zumi Tamagacha</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+    :root{
+    --gold:#f6c453;
+    --gold-2:#ffd66b;
+    --screen-w:320px;
+    --screen-h:320px;
+    --accent:#9ab5ff;
+    --panel-bg: rgba(61, 52, 104, 0.4);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:#0b0b0e00;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P',monospace;color:#eeeeee}
+
+    /* container / tamagotchi art */
+    .wrap{ opacity:0; position:relative;width:var(--screen-w);height:var(--screen-h);display:flex;align-items:center;justify-content:center; transform: translateY(100%); }
+    .egg{
+   
+    position:absolute;width:100%;height:100%;
+    background:url('pngz/tamagochi.png') center/contain no-repeat;
+    pointer-events:none;
+    }
+
+    /* screen (fixed position inside egg) */
+    #screen{
+    position:absolute;
+    top:29%;
+    left:41%;                                                                                                
+    transform:translateX(-50%);
+    width:46%;
+    height:45.3%;
+    border-radius:8px;
+    background:linear-gradient(#d9f7ff,#c6dfff);
+    border:3px solid var(--accent);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+    padding:6px;
+    z-index:5;
+    }
+
+    .screen-text.has-content{
+    width:100%;
+    text-align:center;
+    padding:4px 6px;
+    border-radius:6px;
+    font-size:11px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    border: solid 2px;
+    
+    }
+
+    .screen-text.has-content{
+    background:rgba(255,255,255,0.95);
+    
+    }
+
+    #screenUser.has-content{
+    font-size:10px;
+    padding:3px 6px;
+    background:rgba(255,255,255,0.95);
+    color:#2196f3
+    }
+    
+    /* hiding the pet name during animation */
+    #screenPetName.shuffling{ visibility: hidden; }
+
+    /* pet area */
+    #pet-container{ width:100%; flex:1; display:flex; align-items:center; justify-content:center; position:relative; }
+    #pet{
+    width:70%;
+    height:70%;
+    background-size:contain;
+    background-position:center;
+    background-repeat:no-repeat;
+    image-rendering:pixelated;
+    transition:transform .12s linear, filter .12s linear;
+    }
+
+    #screenPetName{ font-size:11px; padding:3px 6px; }
+
+    /* === RARITY STYLES === */
+    .common {
+    color: #aaa;
+    text-shadow: 0 0 6px rgba(170,170,170,0.5);
+    }
+
+    .uncommon {
+    color: #4caf50;
+    text-shadow: 
+    0 0 6px rgba(76, 175, 80, 0.7),
+    0 0 12px rgba(76, 175, 80, 0.5);
+    }
+
+    .rare {
+    color: #2196f3;
+    text-shadow: 
+    0 0 8px rgba(33, 150, 243, 0.8),
+    0 0 16px rgba(33, 150, 243, 0.6);
+    }
+
+    .epic {
+    color: #9c27b0;
+    text-shadow: 
+    0 0 8px rgba(156, 39, 176, 0.8),
+    0 0 18px rgba(156, 39, 176, 0.6);
+    }
+
+    .legendary {
+    background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    violet,
+    red
+    );
+    background-size: 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShift 6s linear infinite;
+    text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6),
+    0 0 40px rgba(255, 0, 255, 0.4);
+    }
+
+    @keyframes rainbowShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+    }
+
+    /* reveal animations (only pet element scales/filters — screen position unchanged) */
+    .reveal-common #pet{ animation:fadeIn .48s ease both; }
+    .reveal-uncommon #pet{ animation:slideUp .48s ease both; }
+    .reveal-rare #pet{ animation:zoomIn .6s cubic-bezier(.2,.9,.2,1) both; filter:drop-shadow(0 6px 20px rgba(63,169,245,.18)); }
+    .reveal-epic #pet{ animation:pulse 1s ease both; filter:drop-shadow(0 8px 28px rgba(184,77,255,.18)); }
+    .reveal-legendary #pet{ animation:legendPop 1s ease both; filter:drop-shadow(0 10px 30px rgba(255,210,120,.22)); }
+.screen-text.legendary {
+
+    background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    violet,
+    red
+    );
+    background-size: 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShift 6s linear infinite;
+    text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6),
+    0 0 40px rgba(255, 0, 255, 0.4);
+    border-radius:4px;
+border: solid 2px transparent; /* Remove border and make it transparent */
+    border-image: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    violet,
+    red
+    ) 1; /* Apply a rainbow border */
+    filter: drop-shadow(0 6px 20px rgba(63, 169, 245, 0.18));
+}
+    @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
+    @keyframes slideUp{ from{transform:translateY(18px) scale(.9);opacity:0} to{transform:none;opacity:1} }
+    @keyframes zoomIn{ 0%{transform:scale(.5);opacity:0} 80%{transform:scale(1.08);opacity:1} 100%{transform:scale(1)} }
+    @keyframes pulse{ 0%{transform:scale(.92)}50%{transform:scale(1.06)}100%{transform:scale(1)} }
+    @keyframes legendPop{ 0%{transform:scale(.6) rotate(-6deg) }50%{transform:scale(1.14) rotate(6deg)}100%{transform:scale(1) rotate(0)} }
+
+    /* Pop-up animation for .wrap */
+    @keyframes popUp {
+        0% {
+            opacity: 0;
+            transform: translateY(100%) scale(0.5);
+        }
+        70% {
+            opacity: 1;
+            transform: translateY(0) scale(1.1);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .wrap.show { animation: popUp 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
+    
+    /* Pop-down animation for .wrap */
+    @keyframes popDown {
+        0% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(100%) scale(0.5);
+        }
+    }
+    .wrap.hide { animation: popDown 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
+
+    /* shuffle effect (rapid switching) */
+    .shuffling{ filter:blur(.9px) saturate(1.1); transform:scale(0.98); }
+
+    /***** BINDER PANEL (no dark overlay) *****/
+    #binderPanel{
+    position:fixed;
+    left:12px; /* Changed from right to left */
+    top:12px;
+    width:350px;
+    max-height:70vh;
+    overflow:auto;
+    padding:10px;
+    border-radius:10px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border:3px solid rgba(154,181,255,0.12);
+    backdrop-filter: blur(6px);
+    z-index:50;
+    display:none;
+    font-family: sans-serif; /* Changed font */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Added transition */
+    }
+    #binderPanelHeader{ 
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:6px;
+    position: sticky; /* Make header sticky */
+    top: -10px; /* Adjust to stay at the top */
+    background: inherit; /* Inherit background to blur correctly */
+    padding: 10px 0;
+    border-bottom: 2px solid rgba(154,181,255,0.2);
+    z-index: 100;
+    font-family: 'Press Start 2P', monospace;
+    }
+    #binderCountBadge{ font-size:11px; padding:4px 8px; border-radius:10px; background:rgba(0,0,0,0.25); color:#fff; border:2px solid rgba(255,255,255,0.03) }
+    #binderGrid{ display:grid; grid-template-columns: repeat(auto-fill,minmax(80px,1fr)); gap:8px; }
+
+    .binderTile{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:8px;
+    border:2px solid rgba(255,255,255,0.03);
+    padding:4px;
+    text-align:center;
+    position:relative;
+    min-height:88px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .binderTile:hover{ transform:translateY(-6px); box-shadow:0 10px 26px rgba(0,0,0,.6) }
+
+    .binderTile img{ width:100%; height:64px; object-fit:contain; background:transparent; }
+    .binderTile .name{ 
+    font-size:10px; 
+    margin-top:4px; 
+    max-width:100%; 
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+    font-family: 'Press Start 2P', monospace;
+    }
+    .binderTile .qty{ position:absolute; top:6px; left:6px; background:rgba(0,0,0,0.5); color:#fff; padding:2px 6px; border-radius:10px; font-size:10px; }
+
+    /* rarity borders for binder tile */
+    .binderTile.rarity-common{ border-color:#555; color:#ccc; }
+    .binderTile.rarity-uncommon{ border-color:#4caf50; color:#4caf50; }
+    .binderTile.rarity-rare{ border-color:#2196f3; color:#2196f3; }
+    .binderTile.rarity-epic{ border-color:#9c27b0; color:#9c27b0; }
+    .binderTile.rarity-legendary{ border-color:#f6c453; color:#f6c453; }
+
+    /* simple settings gear top-right */
+    #settingsToggle{
+    position:fixed; right:8px; top:8px; z-index:100; border-radius:50%;
+    width:36px; height:36px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.04);
+    display:flex;align-items:center;justify-content:center;cursor:pointer; font-size:16px;
+    }
+
+    #settingsPanel{
+    position:fixed; right:60px; top:8px; z-index:100; width:320px; background: var(--panel-bg);
+    border:3px solid rgba(154,181,255,0.08); padding:10px; border-radius:10px; backdrop-filter:blur(6px); display:none;
+    font-family: sans-serif; /* Changed font */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Added transition */
+    }
+    #settingsPanel label{ font-size:10px; display:block; margin-top:6px; color:#cfe3ff }
+    #settingsPanel input[type="text"], #settingsPanel input[type="number"], #settingsPanel input[type="password"]{ width:100%; padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.05); background:transparent; color:#fff; margin-top:4px; font-size:12px }
+    #settingsPanel .row{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap }
+    #settingsPanel button{ cursor:pointer; padding:6px 8px; border-radius:6px; border:0; background:var(--accent); color:#07142a }
+
+    /* responsiveness */
+    @media (max-width:700px){ #binderPanel{ width:260px; left:8px; top:auto; bottom:12px; } #settingsPanel{ right:8px; top:auto; bottom:56px } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+    <!-- The egg and screen elements are inside the wrap -->
+    <div class="egg" aria-hidden="true"></div>
+
+    <div id="screen">
+    <div id="screenUser" class="screen-text"></div>
+    <div id="pet-container"><div id="pet"></div></div>
+    <div id="screenPetName" class="screen-text"></div>
+    </div>
+</div>
+
+<div id="binderPanel" aria-hidden="true">
+    <div id="binderPanelHeader">
+    <div style="display:flex;flex-direction:column">
+        <strong id="binderUserLabel">viewer1</strong>
+        <small id="binderSubtitle" style="color:rgba(255,255,255,0.55);font-size:11px;font-family:sans-serif">Your collection</small>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+        <div id="binderCountBadge">0/0</div>
+        <button id="closeBinder" style="background:transparent;border:0;color:#fff;cursor:pointer;font-family:sans-serif">✕</button>
+    </div>
+    </div>
+    <div id="binderGrid"></div>
+</div>
+
+<div id="settingsToggle" title="Settings">⚙️</div>
+<div id="settingsPanel" role="dialog" aria-hidden="true">
+<b>
+    <label>Username (viewer)</label>
+    <input id="username" type="text" value="viewer1" />
+
+    <div class="row" style="margin-top:8px">
+    <button id="btnRoll">🎲 Roll</button>
+    <button id="btnOwned">📖 Random Owned</button>
+    <button id="btnBinder">📚 Binder</button>
+    </div>
+    
+    <label>Screen duration (ms) — how long the pet is shown before auto-hiding</label>
+    <input id="screenDuration" type="number" value="2500" />
+    
+    <label>Pulling animation duration (ms) — animation duration before pet reveal</label>
+    <input id="pullingDuration" type="number" value="2000" />
+
+    <label>Delay per-user (ms) — cooldown per user</label>
+    <input id="perUserDelay" type="number" value="10000" />
+
+    <label>Global delay (ms) — cooldown between global pulls</label>
+    <input id="globalDelay" type="number" value="0" />
+
+    <label>Max queue per user</label>
+    <input id="maxQueuePerUser" type="number" value="3" />
+
+    <label>Binder closing time (ms) — 0 uto disable</label>
+    <input id="autoCloseBinderDuration" type="number" value="0" />
+
+    <label>Binder show delay (ms)</label>
+    <input id="binderShowDelay" type="number" value="0" />
+
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:8px 0"/>
+
+    <label>Twitch channel</label>
+    <input id="ircChannel" type="text" value="lastracelestia" />
+
+    <label>IRC Token</label>
+    <input id="ircToken" type="text" value="" />
+
+    <label>Broadcaster ID</label>
+    <input id="broadcasterId" type="text" value="713812330" />
+
+    <label>EventSub Client ID</label>
+    <input id="eventSubClientId" type="text" value="" />
+
+    <label>EventSub OAuth Token</label>
+    <input id="eventSubOAuth" type="text" value="f" />
+</b>
+    <div style="display:flex;gap:8px;margin-top:8px">
+    <button id="btnConnect">🔌 Connect</button>
+    <button id="btnDisconnect">❌ Disconnect</button>
+    </div>
+    <div id="logPanel" style="margin-top:8px;font-size:11px;max-height:150px;overflow:auto;color:#cfe3ff"></div>
+</div>
+<script>
+/* ---------- CONFIG / STATE ---------- */
+const API_URL = "https://script.google.com/macros/s/AKfycbzTYqP_Va6X8iSuofWFw5NSD_uCU8OZ_vSZ9hBEoFbKvUNyH07ogFjBNQT1GsObMAjGhQ/exec";
+
+// --- GACHA RATES (Gacha Rates) ---
+const GACHA_RATES = {
+  'legendary': 1,
+  'epic': 0.04,
+  'rare': 0.10,
+  'uncommon': 0.25,
+  'common': 0.60,
+};
+
+let PETS = [];
+const PET_BY_ID = new Map();
+const PETS_BY_RARITY = new Map();
+let currentUser = document.getElementById('username').value.trim() || 'viewer1';
+
+let lastPull = new Map();
+let globalNext = 0;
+let isAnimating = false;
+let commandQueue = [];
+
+const screenEl = document.getElementById('screen');
+const petEl = document.getElementById('pet');
+const screenUser = document.getElementById('screenUser');
+const wrapEl = document.querySelector('.wrap'); // Get the wrap element
+const screenPetName = document.getElementById('screenPetName');
+const binderPanel = document.getElementById('binderPanel');
+const binderGrid = document.getElementById('binderGrid');
+const binderUserLabel = document.getElementById('binderUserLabel');
+const binderCountBadge = document.getElementById('binderCountBadge');
+const logPanel = document.getElementById('logPanel');
+
+function log(msg){
+    const ts = new Date().toLocaleTimeString();
+    const node = document.getElementById('logPanel');
+    node.innerHTML += `[${ts}] ${msg}<br>`;
+    node.scrollTop = node.scrollHeight;
+}
+
+/* ---------- HELPERS ---------- */
+function rarityClassName(r){ 
+    const rarityMap = {
+        'common': 'common',
+        'uncommon': 'uncommon',
+        'rare': 'rare',
+        'epic': 'epic', 
+        'legendary': 'legendary'
+        };
+    return rarityMap[r.toLowerCase()] || 'common';
+}
+
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function preloadImage(url){
+  const im = new Image(); im.src = url;
+}
+
+function setPetImageLocal(filename, target=petEl){
+  const path = filename ? `pngz/${filename}` : `pngz/placeholder.png`;
+  target.style.backgroundImage = `url("${path}")`;
+}
+
+/**
+* Gacha logic: rolls a rarity based on the defined GACHA_RATES.
+* @returns {string} The rarity name.
+*/
+function rollRarity() {
+  const total = Object.values(GACHA_RATES).reduce((sum, rate) => sum + rate, 0);
+  let random = Math.random() * total;
+
+  for (const rarity in GACHA_RATES) {
+    if (random < GACHA_RATES[rarity]) {
+      return rarity;
+    }
+    random -= GACHA_RATES[rarity];
+  }
+  return 'common';
+}
+
+/* ---------- FETCH PETS ---------- */
+async function fetchPets(){
+  try{
+    log('Loading pet data from API...');
+    const res = await fetch(`${API_URL}?action=getData`);
+    const raw = await res.json();
+    const rawPets = Array.isArray(raw) ? raw : (raw.pets || []);
+    
+    PETS = [];
+    PETS_BY_RARITY.clear();
+    PET_BY_ID.clear();
+    
+    const petList = rawPets.map(item=>{
+      return {
+        id: Number(item.id ?? item.ID ?? 0),
+        name: String(item.name ?? item.Name ?? ''),
+        rarity: String(item.rarity ?? item.Rarity ?? 'common').toLowerCase(),
+        img: String(item.img ?? item.ImgFilename ?? item.Img ?? '').trim()
+      };
+    }).filter(p => p.id && p.name);
+
+    petList.forEach(p => { 
+      PETS.push(p);
+      PET_BY_ID.set(p.id, p);
+      if (!PETS_BY_RARITY.has(p.rarity)) {
+        PETS_BY_RARITY.set(p.rarity, []);
+      }
+      PETS_BY_RARITY.get(p.rarity).push(p);
+      if(p.img) preloadImage(`pngz/${p.img}`);
+    });
+
+    log(`Loaded ${PETS.length} pets.`);
+  }catch(e){
+    log('Failed to load pets: ' + String(e));
+  }
+}
+
+/* ---------- BINDER (fetch / render) ---------- */
+async function getBinderIds(username){
+  try{
+    const r = await fetch(`${API_URL}?action=getBinder&user=${encodeURIComponent(username)}`);
+    const d = await r.json();
+    if(Array.isArray(d)) return d.map(Number);
+    if(Array.isArray(d.pets)) return d.pets.map(Number);
+    if(Array.isArray(d.binder)) return d.binder.map(Number);
+    return [];
+  }catch(e){
+    log('getBinder error, returning local cache (if any)');
+    return [];
+  }
+}
+
+async function renderBinder(username){
+  const ids = await getBinderIds(username);
+  const map = {};
+  ids.forEach(id => map[id] = (map[id]||0) + 1);
+  const uniqueCount = Object.keys(map).length;
+  const total = PETS.length || 0;
+  binderCountBadge.textContent = `${uniqueCount}/${total}`;
+  binderUserLabel.textContent = username;
+  binderGrid.innerHTML = '';
+  const tiles = Object.keys(map).map(id => {
+    const p = PET_BY_ID.get(Number(id));
+    return p ? {p,count:map[id]} : null;
+  }).filter(Boolean).sort((a,b)=>{
+    const order = ['legendary','epic','rare','uncommon','common'];
+    const ra = order.indexOf(a.p.rarity), rb = order.indexOf(b.p.rarity);
+    if(ra !== rb) return ra - rb;
+    return b.count - a.count;
+  });
+
+  tiles.forEach((entry, idx) => {
+    const p = entry.p;
+    const tile = document.createElement('div');
+    tile.className = `binderTile rarity-${rarityClassName(p.rarity)}`;
+    tile.style.animationDelay = (idx*0.03) + 's';
+    const qty = document.createElement('div'); qty.className = 'qty'; qty.textContent = 'x'+entry.count;
+    const img = document.createElement('img'); img.src = p.img ? `pngz/${p.img}` : 'pngz/placeholder.png';
+    img.onerror = ()=> img.src = 'pngz/placeholder.png';
+    const name = document.createElement('div'); name.className = 'name'; name.textContent = p.name;
+    name.classList.add(rarityClassName(p.rarity));
+
+    tile.appendChild(qty); tile.appendChild(img); tile.appendChild(name);
+    binderGrid.appendChild(tile);
+  });
+
+  const showDelay = Number(document.getElementById('binderShowDelay').value) || 0;
+  binderPanel.style.transform = 'translateX(-20px)';
+  binderPanel.style.opacity = '0';
+  binderPanel.style.display = 'block';
+  setTimeout(()=>{
+    binderPanel.style.transform = 'translateX(0)';
+    binderPanel.style.opacity = '1';
+  }, showDelay);
+
+  const autoCloseMs = Number(document.getElementById('autoCloseBinderDuration').value);
+  if(autoCloseMs > 0){
+    setTimeout(()=> {
+      binderPanel.style.transform = 'translateX(-20px)';
+      binderPanel.style.opacity = '0';
+      setTimeout(()=> binderPanel.style.display = 'none', 300);
+    }, autoCloseMs);
+  }
+}
+
+/* ---------- SHOW PET (final reveal) ---------- */
+function showPet(pet, username){
+  petEl.classList.remove('shuffling');
+  screenPetName.classList.remove('shuffling');
+  screenUser.textContent = username || '';
+  screenPetName.textContent = pet.name || '';
+  
+  const raries = ['rarity-common','rarity-uncommon','rarity-rare','rarity-epice','rarity-legendary'];
+  raries.forEach(c=>{ screenUser.classList.remove(c); screenPetName.classList.remove(c); });
+  const cls = 'rarity-' + rarityClassName(pet.rarity);
+  screenUser.classList.add(cls,'has-content');
+  screenPetName.classList.add('has-content', cls);
+  
+  const effectClass = rarityClassName(pet.rarity);
+  screenPetName.classList.remove('common', 'uncommon', 'rare', 'epic', 'legendary'); // Fix: Remove existing rarity classes
+  screenPetName.classList.add(effectClass);
+
+  setPetImageLocal(pet.img);
+  screenEl.classList.remove('reveal-common','reveal-uncommon','reveal-rare','reveal-epic','reveal-legendary');
+  screenEl.classList.add('reveal-' + rarityClassName(pet.rarity));
+
+  const dur = Number(document.getElementById('screenDuration').value) || 2500;
+  setTimeout(()=> {
+    screenUser.textContent = '';
+    screenPetName.textContent = '';
+    screenUser.className = 'screen-text';
+    screenPetName.className = 'screen-text';
+    petEl.style.backgroundImage = '';
+    screenEl.classList.remove('reveal-common','reveal-uncommon','reveal-rare','reveal-epic','reveal-legendary');
+    wrapEl.classList.remove('show');
+    wrapEl.classList.add('hide'); // Add hide class for pop-down animation
+    // Remove hide class after animation completes to reset for next show
+    setTimeout(() => wrapEl.classList.remove('hide'), 500); 
+    isAnimating = false;
+    processQueue();
+  }, dur);
+}
+
+/* ---------- ROLL & SHUFFLE (animated) ---------- */
+async function rollAndReveal(username) {
+  username = username || currentUser || 'viewer1';
+  const now = Date.now();
+  const perUserDelay = Number(document.getElementById('perUserDelay').value) || 10000;
+  const globalDelay = Number(document.getElementById('globalDelay').value) || 600;
+
+  if (globalNext > now) {
+    log('Cooling down (global).');
+    return false;
+  }
+  const last = lastPull.get(username) || 0;
+  if (now - last < perUserDelay) {
+    log(`${username} masih cooldown (${Math.ceil((perUserDelay - (now - last)) / 1000)}s)`);
+    return false;
+  }
+
+  if (!PETS.length) await fetchPets();
+  if (!PETS.length) { log('No pets loaded'); return false; }
+
+  wrapEl.classList.add('show'); // Show the wrap element with animation
+  isAnimating = true; // Set isAnimating to true when animation starts
+
+  const pickedRarity = rollRarity();
+  const availablePets = PETS_BY_RARITY.get(pickedRarity) || [];
+
+  let pick;
+  if (availablePets.length > 0) {
+    pick = rand(availablePets);
+  } else {
+    log(`No pets found for rarity: ${pickedRarity}. Pulling a random pet instead.`);
+    pick = rand(PETS);
+  }
+
+  petEl.classList.add('shuffling');
+  screenPetName.classList.add('shuffling');
+
+  screenUser.textContent = username;
+  screenPetName.textContent = 'Waiting...';
+  screenUser.classList.add('has-content');
+  screenPetName.classList.add('has-content');
+
+  const pullingDuration = Number(document.getElementById('pullingDuration').value) || 2000;
+  const shuffleInterval = setInterval(() => {
+    const r = rand(PETS);
+    setPetImageLocal(r.img || '');
+  }, 70);
+
+  setTimeout(() => {
+    clearInterval(shuffleInterval);
+    showPet(pick, username);
+    lastPull.set(username, Date.now());
+    globalNext = Date.now() + globalDelay;
+    addToBinder(username, pick.id).catch(e => log('binder add failed'));
+    trySendChat(`${username} pulled ${pick.name} (${pick.rarity})`);
+  }, pullingDuration);
+
+  return true;
+}
+
+function processQueue() {
+  if (commandQueue.length > 0 && !isAnimating) {
+    const nextCommand = commandQueue.shift();
+    log(`Executing queued command for ${nextCommand.user}... (${commandQueue.length} left)`);
+    if (nextCommand.command === 'pull') {
+      rollAndReveal(nextCommand.user); // This will set isAnimating to true
+    } else if (nextCommand.command === 'binder') {
+      renderBinder(nextCommand.user);
+      isAnimating = false; // Binder doesn't involve the main animation, so reset immediately
+      processQueue(); // Process next command
+    } else if (nextCommand.command === 'show') {
+      handleShowCommand(nextCommand.user, nextCommand.arg);
+      isAnimating = false;
+      processQueue();
+    }
+  }
+}
+
+async function handleShowCommand(who, arg) {
+  const petName = arg.toLowerCase();
+  const ids = await getBinderIds(who);
+  const pet = PETS.find(p => p.name.toLowerCase() === petName);
+  if (pet && ids.includes(pet.id)) {
+    showPet(pet, who);
+  } else {
+    log(`${who} does not own ${arg}.`);
+    isAnimating = false;
+    processQueue();
+  }
+}
+
+async function handleCommand(user, command, arg=null) {
+  const maxQueue = Number(document.getElementById('maxQueuePerUser').value) || 3;
+  const userQueueCount = commandQueue.filter(c => c.user === user).length;
+
+  if (userQueueCount >= maxQueue) {
+    log(`${user} has too many commands in queue. Please wait.`);
+    return;
+  }
+  
+  if (isAnimating) {
+    commandQueue.push({ user, command, arg });
+    log(`Command from ${user} queued (${commandQueue.length} total).`);
+    return;
+  }
+
+  if (command === 'pull') {
+    if (await rollAndReveal(user)) {
+      // isAnimating is set inside rollAndReveal
+    }
+  } else if (command === 'binder') {
+    renderBinder(user);
+  } else if (command === 'show' && arg) {
+    handleShowCommand(user, arg);
+  }
+}
+
+
+/* ---------- BINDER API write ---------- */
+async function addToBinder(username, petId){
+  try{
+    await fetch(`${API_URL}?action=add&user=${encodeURIComponent(username)}&pet=${encodeURIComponent(petId)}`);
+    log(`Binder saved: ${username} -> ${petId}`);
+  }catch(e){
+    log('Binder save failed: ' + String(e));
+  }
+}
+
+/* ---------- UI wiring ---------- */
+document.getElementById('username').addEventListener('input', e=> currentUser = e.target.value.trim() || 'viewer1');
+document.getElementById('btnRoll').addEventListener('click', ()=> handleCommand(currentUser, 'pull'));
+document.getElementById('btnOwned').addEventListener('click', async ()=>{
+  const ids = await getBinderIds(currentUser);
+  if(!ids.length){ log(`${currentUser} doesn't have any pets yet.`); return; }
+  const id = rand(ids);
+  const p = PET_BY_ID.get(Number(id));
+  if(p) showPet(p, currentUser);
+});
+document.getElementById('btnBinder').addEventListener('click', ()=> handleCommand(currentUser, 'binder'));
+document.getElementById('closeBinder').addEventListener('click', ()=> {
+  binderPanel.style.transform = 'translateX(-20px)';
+  binderPanel.style.opacity = '0';
+  setTimeout(()=> binderPanel.style.display = 'none', 300);
+});
+
+document.getElementById('settingsToggle').addEventListener('click', ()=> {
+  const panel = document.getElementById('settingsPanel');
+  if(panel.style.display === 'block'){
+    panel.style.transform = 'translateX(20px)';
+    panel.style.opacity = '0';
+    setTimeout(()=> panel.style.display = 'none', 300);
+  } else {
+    panel.style.display = 'block';
+    setTimeout(()=>{
+      panel.style.transform = 'translateX(0)';
+      panel.style.opacity = '1';
+    }, 10);
+  }
+});
+
+// Save settings to localStorage
+function saveSettings(){
+  const settings = {
+    username: document.getElementById('username').value,
+    screenDuration: document.getElementById('screenDuration').value,
+    pullingDuration: document.getElementById('pullingDuration').value,
+    perUserDelay: document.getElementById('perUserDelay').value,
+    globalDelay: document.getElementById('globalDelay').value,
+    binderShowDelay: document.getElementById('binderShowDelay').value,
+    maxQueuePerUser: document.getElementById('maxQueuePerUser').value,
+    autoCloseBinderDuration: document.getElementById('autoCloseBinderDuration').value,
+    ircChannel: document.getElementById('ircChannel').value,
+    ircToken: document.getElementById('ircToken').value,
+        broadcasterId: document.getElementById('broadcasterId').value,
+    eventSubClientId: document.getElementById('eventSubClientId').value,
+    eventSubOAuth: document.getElementById('eventSubOAuth').value
+  };
+  localStorage.setItem('tamagotchiGachaSettings', JSON.stringify(settings));
+}
+
+// Load settings from localStorage
+function loadSettings(){
+  const settings = JSON.parse(localStorage.getItem('tamagotchiGachaSettings'));
+  if(settings){
+    document.getElementById('username').value = settings.username || 'viewer1';
+    document.getElementById('screenDuration').value = settings.screenDuration || '2500';
+    document.getElementById('pullingDuration').value = settings.pullingDuration || '2000';
+    document.getElementById('perUserDelay').value = settings.perUserDelay || '10000';
+    document.getElementById('globalDelay').value = settings.globalDelay || '600';
+    document.getElementById('binderShowDelay').value = settings.binderShowDelay || '0';
+    document.getElementById('maxQueuePerUser').value = settings.maxQueuePerUser || '3';
+    document.getElementById('autoCloseBinderDuration').value = settings.autoCloseBinderDuration || '0';
+    document.getElementById('ircChannel').value = settings.ircChannel || 'lastracelestia';
+    document.getElementById('ircToken').value = settings.ircToken || '';
+        document.getElementById('broadcasterId').value = settings.broadcasterId || '';
+    document.getElementById('eventSubClientId').value = settings.eventSubClientId || '';
+    document.getElementById('eventSubOAuth').value = settings.eventSubOAuth || '';
+    currentUser = document.getElementById('username').value.trim() || 'viewer1';
+    ircChannelName = document.getElementById('ircChannel').value.trim();
+  }
+}
+document.querySelectorAll('#settingsPanel input, #settingsPanel button').forEach(el=>{
+  if(el.id!=='btnConnect' && el.id!=='btnDisconnect') el.addEventListener('change', saveSettings);
+});
+
+
+/* ---------- IRC / TWITCH integration (robust parse) ---------- */
+let ircSocket = null;
+let ircChannelName = document.getElementById('ircChannel').value.trim() || 'lastracelestia';
+function ircSend(line){
+  if(ircSocket && ircSocket.readyState === 1){ ircSocket.send(line); log('→ ' + line.replace(/PASS oauth:[^ ]+/i,'PASS oauth:*****')); }
+}
+
+/* robust parser for IRCv3 lines */
+function parseIrcLine(line){
+  let rest = line;
+  const result = {tags:{}, prefix:null, command:null, params:[], trailing:''};
+  if(rest.startsWith('@')){
+    const idx = rest.indexOf(' ');
+    const tagstr = rest.slice(1, idx);
+    rest = rest.slice(idx+1);
+    tagstr.split(';').forEach(pair=>{
+      const [k,v] = pair.split('=');
+      result.tags[k] = v === undefined ? '' : decodeURIComponent(v);
+    });
+  }
+  if(rest.startsWith(':')){
+    const idx = rest.indexOf(' ');
+    result.prefix = rest.slice(1, idx);
+    rest = rest.slice(idx+1);
+  }
+  const trailingIdx = rest.indexOf(' :');
+  if(trailingIdx !== -1){
+    result.trailing = rest.slice(trailingIdx+2);
+    rest = rest.slice(0, trailingIdx);
+  }
+  const parts = rest.trim().split(/\s+/).filter(Boolean);
+  if(parts.length) result.command = parts[0];
+  if(parts.length>1) result.params = parts.slice(1);
+  return result;
+}
+
+/* Attempt to send chat message (only works if authenticated & allowed) */
+function trySendChat(text){
+  try{
+    const chan = '#'+(document.getElementById('ircChannel').value.trim().replace(/^#/, '').toLowerCase());
+    if(ircSocket && ircSocket.readyState === 1){
+      ircSend(`PRIVMSG ${chan} :${text}`);
+    }
+  }catch(e){ /* ignore */ }
+}
+
+function connectIRC(){
+  const chanRaw = document.getElementById('ircChannel').value.trim() || 'lastracelestia';
+  const tokenRaw = document.getElementById('ircToken').value.trim() || '';
+  const channel = '#'+chanRaw.replace(/^#/,'').toLowerCase();
+  ircChannelName = chanRaw.replace(/^#/,'').toLowerCase();
+  const nick = ircChannelName;
+  const hasToken = Boolean(tokenRaw);
+  const pass = hasToken ? (tokenRaw.startsWith('oauth:') ? tokenRaw : 'oauth:' + tokenRaw) : null;
+
+  if(ircSocket){ try{ ircSocket.close(); }catch(e){} }
+  ircSocket = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
+
+  ircSocket.onopen = ()=>{
+    log('IRC WS open. Requesting capabilities...');
+    ircSend('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
+    if(pass) ircSend(`PASS ${pass}`);
+    ircSend(`NICK ${nick}`);
+    ircSend(`JOIN ${channel}`);
+    log(`Joining ${channel} as ${nick} (${pass? 'auth' : 'anon'})`);
+  };
+
+  ircSocket.onmessage = async (ev)=>{
+    const raw = ev.data || '';
+    const lines = raw.split('\r\n').filter(Boolean);
+    for(const line of lines){
+      if(!line) continue;
+      log('← ' + (line.length>400 ? line.slice(0,400)+'...' : line));
+      if(line.startsWith('PING')) { ircSend('PONG :tmi.twitch.tv'); continue; }
+      const parsed = parseIrcLine(line);
+      if(!parsed.command) continue;
+      if(parsed.command.toUpperCase() === 'PRIVMSG'){
+        const who = parsed.tags['display-name'] || (parsed.prefix ? parsed.prefix.split('!')[0] : 'viewer');
+        const msg = parsed.trailing || '';
+        if(!msg) continue;
+        log(`<b>${who}</b>: ${msg}`);
+        const cleaned = msg.trim().toLowerCase();
+        if(cleaned === '!pull' || cleaned === '!pet' || cleaned === '!gacha'){
+          handleCommand(who, 'pull');
+        } else if(cleaned === '!binder' || cleaned === '!koleksi'){
+          handleCommand(who, 'binder');
+        } else if(cleaned.startsWith('!show ')){
+          const arg = msg.substring(6).trim();
+          handleCommand(who, 'show', arg);
+        }
+      }
+    }
+  };
+
+  ircSocket.onerror = (e) => { log('IRC WS error'); };
+  ircSocket.onclose = ()=> { log('IRC closed'); ircSocket = null; };
+}
+
+function disconnectIRC(){
+  if(ircSocket){
+    try{ ircSocket.close(); }catch(e){}
+    ircSocket = null;
+    log('Disconnected from IRC.');
+  }
+}
+
+
+/* ---------- TWITCH EVENTSUB INTEGRATION ---------- */
+let eventSubSocket = null;
+const TWITCH_EVENTSUB_URL = "wss://eventsub.wss.twitch.tv/ws";
+const REWARD_NAME = "Pull a pet!";
+const BINDER_REWARD_NAME = "Binder";
+
+function connectEventSub() {
+    const YOUR_BROADCASTER_ID = document.getElementById('broadcasterId').value.trim();
+    const YOUR_TWITCH_CLIENT_ID = document.getElementById('eventSubClientId').value.trim();
+    const YOUR_TWITCH_OAUTH_TOKEN = document.getElementById('eventSubOAuth').value.trim();
+
+    if (eventSubSocket && eventSubSocket.readyState === 1) { return; }
+    if (!YOUR_BROADCASTER_ID || !YOUR_TWITCH_CLIENT_ID || !YOUR_TWITCH_OAUTH_TOKEN) {
+        log('EventSub credentials not set. Skipping connection.');
+        return;
+    }
+
+    eventSubSocket = new WebSocket(TWITCH_EVENTSUB_URL);
+
+    eventSubSocket.onopen = () => {
+        log('EventSub WS open. Awaiting welcome message...');
+    };
+
+    eventSubSocket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        log('EventSub message received: ' + data.metadata.message_type);
+
+        if (data.metadata.message_type === "session_welcome") {
+            const sessionId = data.payload.session.id;
+            log(`Session ID: ${sessionId}. Subscribing to redemptions...`);
+            subscribeToRedemptions(sessionId, YOUR_BROADCASTER_ID, YOUR_TWITCH_CLIENT_ID, YOUR_TWITCH_OAUTH_TOKEN);
+        } else if (data.metadata.message_type === "notification" && data.payload.subscription.type === "channel.channel_points_custom_reward_redemption.add") {
+            const redemption = data.payload.event;
+            const username = redemption.user_name;
+            const rewardTitle = redemption.reward.title;
+
+            log(`Channel Point Redeemed by ${username}: ${rewardTitle}`);
+            
+            if (rewardTitle.toLowerCase() === REWARD_NAME.toLowerCase()) {
+                handleCommand(username, 'pull');
+            } else if (rewardTitle.toLowerCase() === BINDER_REWARD_NAME.toLowerCase()) {
+                handleCommand(username, 'binder');
+            }
+        }
+    };
+
+    eventSubSocket.onclose = () => {
+        log('EventSub WS closed. Reconnecting in 5 seconds...');
+        setTimeout(connectEventSub, 5000); 
+    };
+    
+    eventSubSocket.onerror = (err) => {
+        log('EventSub WS error');
+        console.error(err);
+    };
+}
+
+async function subscribeToRedemptions(sessionId, broadcasterId, clientId, oauthToken) {
+    try {
+        const response = await fetch("https://api.twitch.tv/helix/eventsub/subscriptions", {
+            method: "POST",
+            headers: {
+                "Client-ID": clientId,
+                "Authorization": `Bearer ${oauthToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "type": "channel.channel_points_custom_reward_redemption.add",
+                "version": "1",
+                "condition": {
+                    "broadcaster_user_id": broadcasterId
+                },
+                "transport": {
+                    "method": "websocket",
+                    "session_id": sessionId
+                }
+            })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            log('Subscription successful!');
+        } else {
+            log('Subscription failed:', data);
+        }
+    } catch (e) {
+        log('Subscription error:', e);
+    }
+}
+
+function disconnectEventSub(){
+    if(eventSubSocket){
+        try{ eventSubSocket.close(); }catch(e){}
+        eventSubSocket = null;
+        log('Disconnected from EventSub.');
+    }
+}
+
+
+document.getElementById('btnConnect').addEventListener('click', () => {
+    connectIRC();
+    connectEventSub();
+});
+
+document.getElementById('btnDisconnect').addEventListener('click', () => {
+    disconnectIRC();
+    disconnectEventSub();
+});
+
+window.addEventListener('load', async () => {
+    loadSettings();
+    await fetchPets();
+    connectIRC(); // Call connectIRC on load for easy testing
+    connectEventSub(); // Call connectEventSub on load
+});
+</script>
+</body>
+</html>
