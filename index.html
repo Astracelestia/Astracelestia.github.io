@@ -1,8 +1,429 @@
-<html>
-  <head></head>
-  <body>
-    <iframe class="pointer-events-none h-24 w-full" src="https://reactive.fugi.tech/individual/353448492892553217"></iframe>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyek-Proyek Saya</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
+        /* Variabel CSS untuk Mode Gelap dan Terang */
+        :root {
+            --bg-color-light: #f0f0f0;
+            --text-color-light: #333;
+            --card-bg-light: rgba(255, 255, 255, 0.3);
+            --border-color-light: rgba(255, 255, 255, 0.5);
+            --shadow-light: rgba(0, 0, 0, 0.1);
 
-  </body>
+            --bg-color-dark: #121212;
+            --text-color-dark: #eee;
+            --card-bg-dark: rgba(0, 0, 0, 0.3);
+            --border-color-dark: rgba(255, 255, 255, 0.1);
+            --shadow-dark: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+            position: relative;
+            color: var(--text-color-light);
+            background-color: var(--bg-color-light);
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            color: var(--text-color-dark);
+            background-color: var(--bg-color-dark);
+        }
+
+        /* Animasi Latar Belakang Gradient */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient-animate 15s ease infinite;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        @keyframes gradient-animate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px var(--shadow-light);
+        }
+
+        body.dark-mode .title {
+            text-shadow: 2px 2px 4px var(--shadow-dark);
+        }
+
+        /* Glassmorphism Styling */
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .project-item {
+            background: var(--card-bg-light);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color-light);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 var(--shadow-light);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .project-item {
+            background: var(--card-bg-dark);
+            border: 1px solid var(--border-color-dark);
+            box-shadow: 0 8px 32px 0 var(--shadow-dark);
+        }
+
+        .project-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 40px 0 var(--shadow-light);
+        }
+
+        body.dark-mode .project-item:hover {
+            box-shadow: 0 12px 40px 0 var(--shadow-dark);
+        }
+
+        .project-thumbnail img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: block;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Pop-up Styling */
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .popup-content {
+            background: var(--card-bg-light);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color-light);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 8px 32px 0 var(--shadow-light);
+        }
+
+        body.dark-mode .popup-content {
+            background: var(--card-bg-dark);
+            border: 1px solid var(--border-color-dark);
+            box-shadow: 0 8px 32px 0 var(--shadow-dark);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color-light);
+        }
+        
+        body.dark-mode .close-btn {
+            color: var(--text-color-dark);
+        }
+
+        #password-input {
+            width: 80%;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border: 1px solid var(--border-color-light);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-color-light);
+            outline: none;
+        }
+
+        body.dark-mode #password-input {
+            border: 1px solid var(--border-color-dark);
+            background-color: rgba(0, 0, 0, 0.2);
+            color: var(--text-color-dark);
+        }
+        
+        #password-input::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        
+        body.dark-mode #password-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        #access-btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 10px;
+            background: #23d5ab;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #access-btn:hover {
+            background: #178f73;
+        }
+
+        .error-message {
+            color: #ff4d4d;
+            margin-top: 0.5rem;
+            display: none;
+            font-weight: 600;
+        }
+
+        /* Mode Gelap/Terang Switch */
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 1rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Tambahan untuk responsif */
+        @media (max-width: 768px) {
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-animation"></div>
+
+    <header class="header">
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+            </label>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="title">RAINPIXEL</h1>
+        <section class="project-list">
+            <!-- Proyek-proyek akan ditambahkan secara dinamis oleh JavaScript, tapi ini contoh strukturnya. -->
+            <div class="project-item" data-project-id="1">
+                <div class="project-thumbnail">
+                    <img src="https://via.placeholder.com/400x300/e73c7e/ffffff?text=Proyek+1" alt="Thumbnail Proyek 1">
+                </div>
+                <h2 class="project-title">Zumi Blue Tamagotchi</h2>
+            </div>
+            
+            <!-- <div class="project-item" data-project-id="2">
+                <div class="project-thumbnail">
+                    <img src="https://via.placeholder.com/400x300/23d5ab/ffffff?text=Proyek+2" alt="Thumbnail Proyek 2">
+                </div>
+                <h2 class="project-title">Nama Proyek 2</h2>
+            </div>
+
+            <div class="project-item" data-project-id="3">
+                <div class="project-thumbnail">
+                    <img src="https://via.placeholder.com/400x300/23a6d5/ffffff?text=Proyek+3" alt="Thumbnail Proyek 3">
+                </div>
+                <h2 class="project-title">Nama Proyek 3</h2>
+            </div> -->
+        </section>
+    </main>
+
+    <div id="popup-container" class="popup-container">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <p>Masukkan kata sandi untuk mengakses proyek:</p>
+            <input type="password" id="password-input" placeholder="Kata sandi">
+            <button id="access-btn">Akses</button>
+            <div id="error-message" class="error-message"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeSwitch = document.getElementById('checkbox');
+            const projectItems = document.querySelectorAll('.project-item');
+            const popupContainer = document.getElementById('popup-container');
+            const closeBtn = document.querySelector('.close-btn');
+            const accessBtn = document.getElementById('access-btn');
+            const passwordInput = document.getElementById('password-input');
+            const errorMessage = document.getElementById('error-message');
+
+            // --- Logika Mode Gelap/Terang ---
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark-mode') {
+                document.body.classList.add('dark-mode');
+                themeSwitch.checked = true;
+            }
+
+            themeSwitch.addEventListener('change', () => {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark-mode');
+                } else {
+                    localStorage.setItem('theme', 'light-mode');
+                }
+            });
+
+            // --- Logika Pop-up dan Kata Sandi ---
+            let activeProjectId = null;
+
+            projectItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    activeProjectId = item.getAttribute('data-project-id');
+                    popupContainer.style.display = 'flex';
+                    passwordInput.value = ''; // Mengosongkan input
+                    errorMessage.style.display = 'none'; // Menghilangkan pesan error
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                popupContainer.style.display = 'none';
+            });
+
+            // Menutup pop-up saat mengklik di luar konten
+            window.addEventListener('click', (event) => {
+                if (event.target === popupContainer) {
+                    popupContainer.style.display = 'none';
+                }
+            });
+            
+            // Contoh kata sandi (Anda bisa mengubahnya)
+            const passwords = {
+                '1': 'ztamagacha',
+                '2': 'proyek2',
+                '3': 'proyek3'
+            };
+
+            accessBtn.addEventListener('click', () => {
+                const inputPassword = passwordInput.value.trim().toLowerCase();
+                const correctPassword = passwords[activeProjectId];
+                
+                if (inputPassword === correctPassword) {
+                    // Jika kata sandi benar, arahkan ke URL proyek
+                    // Ganti URL di bawah dengan URL proyek Anda
+                    // Contoh: window.location.href = `https://link-proyek-${activeProjectId}.com`;
+                    alert('Akses berhasil! Anda akan diarahkan ke proyek.');
+                    popupContainer.style.display = 'none';
+                } else {
+                    errorMessage.textContent = 'Kata sandi salah. Silakan coba lagi.';
+                    errorMessage.style.display = 'block';
+                }
+            });
+
+            passwordInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    accessBtn.click();
+                }
+            });
+        });
+    </script>
+
+</body>
 </html>
