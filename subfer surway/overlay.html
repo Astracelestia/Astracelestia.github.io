@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Debug YouTube Chat</title>
+  <style>
+    body { background:#111; color:#0f0; font-family: monospace; padding:10px; }
+    .log { white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h2>Debug Chat Log</h2>
+  <div id="log" class="log"></div>
+
+  <script>
+    const logBox = document.getElementById("log");
+
+    function log(msg) {
+      console.log(msg);
+      logBox.innerText += msg + "\n";
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    const ws = new WebSocket("ws://localhost:8080");
+
+    ws.onopen = () => {
+      log("[WS] Connected to ws://localhost:8080");
+      // ❌ Jangan kirim subscribe
+    };
+
+    ws.onmessage = (event) => {
+      log("[RAW] " + event.data);
+
+      try {
+        const parsed = JSON.parse(event.data);
+        log("[PARSED] " + JSON.stringify(parsed, null, 2));
+
+        // Filter kalau ada chat message
+        if (parsed?.event === "YouTube.ChatMessage" || parsed?.event === "General.ChatMessage") {
+          log(`[CHAT] ${parsed.data.user.name}: ${parsed.data.message}`);
+        }
+      } catch (e) {
+        log("[ERROR] Failed to parse: " + e.message);
+      }
+    };
+
+    ws.onerror = (err) => log("[WS ERROR] " + err.message);
+    ws.onclose = () => log("[WS CLOSED]");
+  </script>
+</body>
+</html>

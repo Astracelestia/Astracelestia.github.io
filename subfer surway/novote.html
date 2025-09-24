@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Subway Runner — Responsive</title>
+<style>
+html,body{
+width: 100vw;
+height: 100vh;
+margin: 0;
+overflow: hidden;
+font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+background:url('background.webp') no-repeat center center fixed;
+background-size: cover;
+}
+#wrap{
+position:relative;
+width:100vw;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
+canvas{
+display:block;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(10,30,60,0.25);
+}
+#hudTop{
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+z-index:20;
+text-align:center;
+pointer-events:none;
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(8px);
+border: 1px solid rgba(255, 255, 255, 0.15);
+border-radius: 16px;
+padding: 12px 20px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+#score{
+color:#fff;
+font-weight:700;
+font-size:56px;
+text-shadow:0 0 8px rgba(255,255,255,0.6), 0 0 12px rgba(173,216,230,0.4);
+}
+#highscore{
+color:#e9f7ff;
+font-size:20px;
+margin-top:6px;
+text-shadow:0 0 6px rgba(255,255,255,0.5), 0 0 8px rgba(173,216,230,0.3);
+}
+#voteUI { display: none; }
+.voteButtons{
+display:flex;
+gap:10px;
+flex:1;
+justify-content:space-around;
+}
+.voteBtn{
+flex:1;
+padding:12px 8px;
+border-radius:10px;
+text-align:center;
+cursor:pointer;
+user-select:none;
+background:linear-gradient(180deg,#ffffff11,#ffffff08);
+color:#fff;
+font-weight:700;
+font-size:18px;
+border:1px solid rgba(255,255,255,0.04);
+transition:transform .08s;
+}
+.voteBtn:active{
+transform:translateY(2px) scale(.995);
+}
+.progressRow{
+display:flex;
+gap:8px;
+margin-top:10px;
+align-items:center;
+}
+.label{
+width:56px;
+font-size:16px;
+font-weight:700;
+color:#e6f7ff;
+text-align:left;
+}
+.barWrap{
+flex:1;
+background:rgba(0,0,0,0.12);
+border-radius:8px;
+height:14px;
+overflow:hidden;
+}
+.bar{
+height:100%;
+background:linear-gradient(90deg,#21d4fd,#b721ff);
+width:0%;
+transition:width .2s linear;
+}
+#countdown{
+margin-left:12px;
+min-width:106px;
+text-align:right;
+color:#fff;
+font-weight:700;
+}
+#controls{
+position:absolute;
+top:20px;
+right:18px;
+z-index:21;
+display:flex;
+gap:8px;
+}
+.ctrlBtn{
+padding:8px 10px;
+border-radius:8px;
+background:#ffffff09;
+color:#fff;
+border:1px solid rgba(255,255,255,.05);
+cursor:pointer;
+}
+#debug{
+position:absolute;
+left:12px;
+bottom:12px;
+z-index:22;
+color:#0f0;
+font-family:monospace;
+font-size:12px;
+opacity:.95;
+display:none;
+background:rgba(0,0,0,0.45);
+padding:8px;
+border-radius:8px;
+max-width:320px;
+max-height:220px;
+overflow:auto;
+}
+
+.lane-labels {
+position: absolute;
+top: 170px;
+width: 80%;
+max-width: 900px;
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+z-index: 20;
+padding: 0 20px;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(8px);
+border: 1px solid rgba(255, 255, 255, 0.15);
+border-radius: 16px;
+padding: 12px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.lane-label-item {
+background: none;
+padding: 8px 16px;
+border-radius: 8px;
+backdrop-filter: none;
+color: #fff;
+font-weight: 700;
+font-size: 20px;
+text-align: center;
+text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 8px;
+}
+
+#gameOverOverlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(255, 0, 0, 0);
+display: flex;
+justify-content: center;
+align-items: center;
+color: white;
+font-size: 80px;
+font-weight: bold;
+text-shadow: 0 0 20px black;
+z-index: 100;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.5s ease-in-out;
+}
+#gameOverOverlay.show {
+opacity: 1;
+visibility: visible;
+}
+
+#statusContainer {
+position: absolute;
+top: 20px;
+left: 20px;
+z-index: 20;
+padding: 8px 12px;
+border-radius: 8px;
+color: white;
+font-weight: bold;
+background: #D12025;
+transition: all 0.5s ease;
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div id="hudTop"><div id="score">Score: 0</div><div id="highscore">Highscore: 0</div></div>
+<div id="controls">
+<button class="ctrlBtn" id="toggleDebug">Debug</button>
+<button class="ctrlBtn" id="resetHS">Reset HS</button>
+</div>
+<div id="debug"></div>
+<div id="gameOverOverlay">GAME OVER</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+/* ===== CONFIG ===== */
+const CANVAS_W = window.innerWidth, CANVAS_H = window.innerHeight;
+const SPAWN_Z = -80, TARGET_Z = 0;
+const LIVESTREAM_DELAY_SECONDS = 5;
+const OBSTACLE_TRAVEL_TIME = 15;
+const OBSTACLE_SPAWN_INTERVAL = 3;
+const MOVE_DURATION = 0.2;
+const LANE_X = [-3, 0, 3];
+const COLLISION_THRESHOLD = 1.2;
+/* ================== */
+
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setSize(CANVAS_W, CANVAS_H, false);
+document.getElementById('wrap').appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const loader = new THREE.TextureLoader();
+
+loader.load('background.webp', texture => {
+scene.background = texture;
+animate();
+}, undefined, err => {
+console.error('Gagal memuat tekstur background:', err);
+animate();
+});
+
+const camera = new THREE.PerspectiveCamera(25, CANVAS_W/CANVAS_H, 0.1, 1000);
+camera.position.set(0, 2.5, 15);
+camera.lookAt(0, 19.5, -300);
+
+const trackTex = loader.load('jalan.webp', t => { t.wrapS=t.wrapT=THREE.RepeatWrapping; t.repeat.set(1,40) }, undefined, ()=>{});
+const trackMat = new THREE.MeshBasicMaterial({
+map: trackTex,
+transparent: true,
+alphaTest: 0.5,
+});
+const trackMesh = new THREE.Mesh(new THREE.PlaneGeometry(12,400,1,1), trackMat);
+trackMesh.rotation.x = -Math.PI/2;
+trackMesh.position.y = 0;
+trackMesh.renderOrder = 0;
+scene.add(trackMesh);
+
+function genPlayerFallback(side){ const c=document.createElement('canvas'); c.width=256; c.height=256; const ctx=c.getContext('2d'); ctx.clearRect(0,0,256,256);
+ctx.fillStyle='#ff6b6b'; ctx.beginPath(); ctx.arc(128,112,90,0,Math.PI*2); ctx.fill();
+ctx.fillStyle='#3a3a3a'; if(side==='left'){ ctx.fillRect(58,160,40,18); } else { ctx.fillRect(158,160,40,18); }
+ctx.fillStyle='#fff'; ctx.font='20px sans-serif'; ctx.textAlign='center'; ctx.fillText(side==='left'?'L':'R',128,132);
+return new THREE.CanvasTexture(c);
+}
+let playerLeftTex=null, playerRightTex=null;
+let playerSprite=null;
+
+loader.load('player-left.webp', t=>{ playerLeftTex = t; checkCreatePlayer(); }, undefined, ()=>{ playerLeftTex = genPlayerFallback('left'); checkCreatePlayer(); });
+loader.load('player-right.webp', t=>{ playerRightTex = t; checkCreatePlayer(); }, undefined, ()=>{ playerRightTex = genPlayerFallback('right'); checkCreatePlayer(); });
+
+function checkCreatePlayer(){
+if(!playerLeftTex || !playerRightTex) return;
+const mat = new THREE.SpriteMaterial({
+map: playerLeftTex,
+transparent: true,
+alphaTest: 0.5,
+depthWrite: false,
+depthTest: true
+});
+playerSprite = new THREE.Sprite(mat);
+playerSprite.scale.set(1.2,2,1);
+playerSprite.position.set(0, 1.4, TARGET_Z);
+playerSprite.renderOrder = 10;
+scene.add(playerSprite);
+}
+
+const OB = ['obstacle/obs1.webp','obstacle/obs2.webp','obstacle/obs3.webp'];
+const obsTex = [];
+OB.forEach(p => loader.load(p, t=>obsTex.push(t), undefined, ()=>{}));
+
+let obstacles = [];
+const OBSTACLE_TRAVEL_DISTANCE = Math.abs(SPAWN_Z - TARGET_Z);
+const OBSTACLE_TOTAL_TIME = OBSTACLE_TRAVEL_TIME - LIVESTREAM_DELAY_SECONDS;
+const obstacleSpeed = OBSTACLE_TRAVEL_DISTANCE / OBSTACLE_TOTAL_TIME;
+
+const scoreEl = document.getElementById('score');
+const hsEl = document.getElementById('highscore');
+const debugEl = document.getElementById('debug');
+const gameOverOverlay = document.getElementById('gameOverOverlay');
+
+let score = 0;
+const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_RvNgPP3jZeQ3dihxVX_OHuKPuQW7RNFmS2iyMZGWSxweP7wSp3hRCL7PtX4XWbmfWg/exec";
+let highscore = 0;
+
+function getHighscore() {
+fetch(APP_SCRIPT_URL)
+.then(response => response.json())
+.then(data => {
+highscore = data.highscore;
+hsEl.innerText = `Highscore: ${highscore}`;
+dbg('Highscore berhasil diambil: ' + highscore);
+})
+.catch(error => {
+console.error('Gagal mengambil highscore:', error);
+dbg('ERROR: Gagal mengambil highscore.');
+});
+}
+
+function sendScoreToGoogleSheets(currentScore) {
+const data = { score: currentScore };
+fetch(APP_SCRIPT_URL, {
+method: 'POST',
+mode: 'no-cors',
+body: new URLSearchParams(data)
+})
+.then(response => {
+dbg('Skor dikirim. Memeriksa highscore terbaru...');
+getHighscore();
+})
+.catch(error => {
+console.error('Gagal mengirim skor:', error);
+dbg('ERROR: Gagal mengirim skor.');
+});
+}
+
+function resetHighscore() {
+if (confirm('Apakah Anda yakin ingin mereset highscore?')) {
+fetch(APP_SCRIPT_URL, {
+ method: 'POST',
+ body: new URLSearchParams({ score: 0 })
+})
+.then(() => {
+ dbg('Highscore berhasil di-reset.');
+ getHighscore();
+})
+.catch(error => console.error('Gagal mereset highscore:', error));
+}
+}
+
+let moveStartX = 0;
+let desiredLaneX = 0;
+let moveTimer = 0;
+let isGameOver = false;
+
+let runTick = 0;
+let runFrame = 0;
+
+document.getElementById('toggleDebug').addEventListener('click', ()=>{ debugEl.style.display = debugEl.style.display==='block'?'none':'block'; });
+document.getElementById('resetHS').addEventListener('click', resetHighscore);
+
+function dbg(msg){ const t=new Date().toLocaleTimeString(); debugEl.innerHTML += `[${t}] ${msg}<br>`; debugEl.scrollTop = debugEl.scrollHeight; }
+
+function handleInput(command) {
+if (!playerSprite || isGameOver) return;
+
+let targetX = 0;
+if (command === 'left') {
+targetX = LANE_X[0];
+} else if (command === 'right') {
+targetX = LANE_X[2];
+} else if (command === 'mid') {
+targetX = LANE_X[1];
+}
+
+if (targetX !== playerSprite.position.x) {
+moveStartX = playerSprite.position.x;
+desiredLaneX = targetX;
+moveTimer = MOVE_DURATION;
+dbg(`Menerima input: ${command.toUpperCase()}. Bergerak ke jalur ${desiredLaneX}.`);
+}
+}
+
+function spawnObstacle(){
+let tex = null;
+if(obsTex.length>0) tex = obsTex[Math.floor(Math.random()*obsTex.length)];
+else {
+const c = document.createElement('canvas'); c.width=128; c.height=128; const ctx=c.getContext('2d');
+ctx.fillStyle='#ffbb33'; ctx.fillRect(0,0,128,128); ctx.fillStyle='#fff'; ctx.font='20px sans-serif'; ctx.textAlign='center'; ctx.fillText('OB',64,76);
+tex = new THREE.CanvasTexture(c);
+}
+
+const mat = new THREE.SpriteMaterial({
+map: tex,
+transparent: true,
+alphaTest: 0.5,
+depthWrite: true,
+depthTest: true
+});
+
+const obs = new THREE.Sprite(mat);
+const laneIndex = Math.floor(Math.random()*3);
+obs.userData.lane = laneIndex;
+obs.scale.set(1.6,1.6,1.6);
+obs.position.set(LANE_X[laneIndex], 1.4, SPAWN_Z);
+obs.renderOrder = 5;
+scene.add(obs);
+obstacles.push(obs);
+dbg(`Rintangan baru muncul di jalur ${['KIRI', 'TENGAH', 'KANAN'][laneIndex]}.`);
+}
+
+function handleArrival(obs){
+const dx = Math.abs(obs.position.x - (playerSprite?playerSprite.position.x:0));
+const collided = dx < COLLISION_THRESHOLD;
+if(collided){
+gameOver();
+} else {
+score += 1;
+if(score > highscore){
+sendScoreToGoogleSheets(score);
+}
+scoreEl.innerText = `Score: ${score}`;
+dbg('✅ Dihindari! +1 skor.');
+}
+scene.remove(obs);
+obstacles = obstacles.filter(o=>o!==obs);
+}
+
+function gameOver() {
+isGameOver = true;
+dbg('💥 Collision! Game Over.');
+gameOverOverlay.classList.add('show');
+setTimeout(() => {
+gameOverOverlay.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+obstacles.forEach(o => scene.remove(o));
+obstacles = [];
+setTimeout(resetGame, 3000);
+}, 100);
+}
+
+function resetGame() {
+dbg('Resetting game...');
+score = 0;
+scoreEl.innerText = `Score: ${score}`;
+gameOverOverlay.classList.remove('show');
+gameOverOverlay.style.backgroundColor = 'rgba(255, 0, 0, 0)';
+if (playerSprite) {
+playerSprite.position.set(0, 1.4, TARGET_Z);
+desiredLaneX = 0;
+moveTimer = 0;
+}
+isGameOver = false;
+timeSinceLastSpawn = 0;
+}
+
+const clock = new THREE.Clock();
+let timeSinceLastSpawn = 0;
+
+function animate(){
+requestAnimationFrame(animate);
+const dt = clock.getDelta();
+
+if (isGameOver) {
+return;
+}
+
+timeSinceLastSpawn += dt;
+if (timeSinceLastSpawn > OBSTACLE_SPAWN_INTERVAL) {
+spawnObstacle();
+timeSinceLastSpawn = 0;
+}
+
+if(trackTex) trackTex.offset.y += dt * (obstacleSpeed / 10);
+
+runTick += dt;
+if(runTick > 0.18){
+runTick = 0; runFrame = 1-runFrame;
+if(playerSprite && playerLeftTex && playerRightTex){
+playerSprite.material.map = runFrame===0 ? playerLeftTex : playerRightTex;
+playerSprite.material.needsUpdate = true;
+}
+}
+
+if(moveTimer > 0 && playerSprite){
+const t = (MOVE_DURATION - moveTimer) / MOVE_DURATION;
+const ease = 1 - Math.pow(1 - t, 3);
+playerSprite.position.x = moveStartX + (desiredLaneX - moveStartX) * ease;
+moveTimer -= dt;
+if(moveTimer <= 0){
+playerSprite.position.x = desiredLaneX;
+moveTimer = 0;
+}
+}
+
+for(let i=obstacles.length-1;i>=0;i--){
+const o = obstacles[i];
+o.position.z += obstacleSpeed * dt;
+if(o.position.z >= TARGET_Z){
+handleArrival(o);
+}
+}
+
+renderer.render(scene, camera);
+}
+
+function onWindowResize() {
+const newWidth = window.innerWidth;
+const newHeight = window.innerHeight;
+renderer.setSize(newWidth, newHeight, false);
+camera.aspect = newWidth / newHeight;
+camera.updateProjectionMatrix();
+}
+
+window.addEventListener('resize', onWindowResize, false);
+
+// Panggil fungsi ini untuk pertama kali
+getHighscore();
+
+// --- Integrasi WebSocket Real-Time dengan Relay ---
+const ws = new WebSocket("wss://echo.websocket.org");
+
+ws.onopen = function() {
+    dbg('✅ Terhubung ke Relay WebSocket.');
+};
+
+ws.onmessage = function(event) {
+    try {
+        const data = JSON.parse(event.data);
+        dbg(`Pesan WebSocket diterima: ${event.data}`);
+        if (data.command === "changeLane" && data.value) {
+            handleInput(data.value);
+        }
+    } catch (e) {
+        dbg(`ERROR: Gagal memproses pesan WebSocket. ${e.message}`);
+    }
+};
+
+ws.onclose = function() {
+    dbg('🔴 Koneksi Relay WebSocket terputus.');
+};
+
+ws.onerror = function(error) {
+    dbg('🔴 Relay WebSocket Error: ' + error.message);
+};
+
+/* keyboard shortcuts for dev (A = left, S = mid, D = right) */
+window.addEventListener('keydown', (e)=>{
+if(e.key.toLowerCase()==='a'){ handleInput('left'); }
+if(e.key.toLowerCase()==='s'){ handleInput('mid'); }
+if(e.key.toLowerCase()==='d'){ handleInput('right'); }
+});
+</script>
+</body>
+</html>
