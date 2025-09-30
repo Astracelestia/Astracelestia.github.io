@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <style>
+            /* Semua elemen diletakkan absolute */
+            .wall, .background, .light, .chatbox, .counter, .herb {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            /* Hanya IMG yang dikasih opacity, videonya tidak */
+            .wall img, .background img, .light img, .chatbox img, .herb img {
+                opacity: 0.5;
+            }
+
+            /* Pastikan layer urutannya benar */
+            .wall { z-index: 1; }
+            .background { z-index: 2; }
+            .light { z-index: 3; }
+            .chatbox { z-index: 4; }
+            .counter { z-index: 10; } /* Video di atas semua */
+            .herb { z-index: 11; }
+
+            /* Ukuran video container */
+            .counter {
+                width: 2560px;
+                height: 1440px;
+                overflow: hidden;
+            }
+
+            .counter video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                opacity: 1 !important; /* Override jika masih kena CSS lain */
+                background-color: transparent;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper-main" style="margin: 0; padding: 0; transform: scale(0.3333); transform-origin: left top;">
+            <div class="back">
+                <div class="wall">
+                    <img src="media/1. Wall .webp" alt="Wall">
+                </div>
+                <div class="background">
+                    <img src="media/2. Background_.webp" alt="Background">
+                </div>
+                <div class="light">
+                    <img src="media/3. Light.webp" alt="Light">
+                </div>
+                <div class="chatbox">
+                    <img src="media/4. Chatbox.webp" alt="Chatbox">
+                </div> 
+            </div>
+            <div class="front">
+                <div class="counter">
+                    <video autoplay loop muted playsinline>
+                        <source src="media/counter.webm" type="video/webm">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                </div>
+                <div class="herb"></div>
+            </div>
+        </div>
+    </body>
+</html>
